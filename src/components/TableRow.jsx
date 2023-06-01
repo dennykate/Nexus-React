@@ -1,9 +1,32 @@
 import React from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { AiOutlineStar } from "react-icons/ai";
 import { BiDotsVerticalRounded, BiPencil } from "react-icons/bi";
-import TableRowProfile from "./TableRowProfile";
+import { IoTrashOutline } from "react-icons/io5";
 
-const TableRow = ({ name, email, phone }) => {
+import TableRowProfile from "./TableRowProfile";
+import Dropdown from "./Dropdown";
+import DropdownItem from "./DropdownItem";
+import { tableRowDropdownData } from "../utils/data";
+import { useDestroyMutation } from "../feature/api/contactsApi";
+
+const TableRow = ({ name, email, phone, id }) => {
+  const [destroy] = useDestroyMutation();
+
+  const deleteHandler = async () => {
+    const { data } = await destroy(id);
+
+    const notify = () => toast.success("Deleted successful");
+
+    if (data.success) {
+      notify();
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
+  };
+
   return (
     <tr className="w-full flex items-center h-[60px] group cursor-pointer hover:bg-[#F2F2F2]">
       <th className="lg:w-[20%] w-[40%] h-full flex items-center justify-start gap-4">
@@ -28,9 +51,16 @@ const TableRow = ({ name, email, phone }) => {
         <button className="text-[#5F6368] hover:text-black">
           <BiPencil size={19} />
         </button>
-        <button className="text-[#5F6368] hover:text-black">
-          <BiDotsVerticalRounded size={19} />
-        </button>
+        <Dropdown Icon={BiDotsVerticalRounded}>
+          {tableRowDropdownData.map((data, index) => (
+            <DropdownItem key={index} Icon={data?.Icon} name={data?.name} />
+          ))}
+          <DropdownItem
+            Icon={IoTrashOutline}
+            name="Delete"
+            onClick={deleteHandler}
+          />
+        </Dropdown>
       </th>
     </tr>
   );

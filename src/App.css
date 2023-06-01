@@ -1,5 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap");
+@import "../node_modules/animate.css/animate.min.css";
+:root {
+  --animate-duration: 200ms;
+  /* --animate-delay: 0.9s; */
+}
 
+* {
+  font-family: "Rubik", sans-serif;
+}
 
+.sideBar {
+  transition: width 0.3s ease-in-out;
+}
+.sideBar.animate__slideInLeft {
+  width: 275px;
+}
+* {
+  font-family: "Rubik", sans-serif;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

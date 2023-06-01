@@ -14,8 +14,19 @@ export const contactsApi = createApi({
           Authorization: "Bearer 32|vL6phUrIfbUCDPxFi6m9wHQthZXUJ2SgZryxMBL1",
         },
       }),
+      providesTags: ["contactsApi"],
+    }),
+    destroy: builder.mutation({
+      query: (id) => ({
+        url: `/contact/${id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer 32|vL6phUrIfbUCDPxFi6m9wHQthZXUJ2SgZryxMBL1",
+        },
+      }),
+      invalidatesTags: ["contactsApi"],
     }),
   }),
 });
 
-export const { useGetAllQuery } = contactsApi;
+export const { useGetAllQuery, useDestroyMutation } = contactsApi;
