@@ -1,9 +1,8 @@
 import React from "react";
 import TableHead from "./TableHead";
 import TableRow from "./TableRow";
-import { dummyData } from "../utils/data";
 
-const Table = () => {
+const Table = ({ data }) => {
   return (
     <div className="w-full px-4">
       <TableHead />
@@ -13,9 +12,9 @@ const Table = () => {
         Contacts ( 27 )
       </h6>
 
-      <table className="w-full ">
+      <table className="w-full mb-3">
         <tbody>
-          {dummyData.map((data, index) => (
+          {data?.data.map((data, index) => (
             <TableRow key={index} {...data} />
           ))}
         </tbody>
