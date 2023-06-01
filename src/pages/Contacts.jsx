@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 
 import Layout from "../components/Layout";
@@ -8,6 +8,7 @@ import { useGetAllQuery } from "../feature/api/contactsApi";
 const Contacts = () => {
   const [page, setPage] = useState(1);
   const { data, error, isLoading } = useGetAllQuery(page);
+
   console.log(data);
 
   const handlePageClick = (e) => {

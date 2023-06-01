@@ -8,8 +8,8 @@ export const contactsApi = createApi({
   tagTypes: ["contactsApi"],
   endpoints: (builder) => ({
     getAll: builder.query({
-      query: () => ({
-        url: "/contact",
+      query: (page) => ({
+        url: `/contact?page=${page}`,
         headers: {
           Authorization: "Bearer 32|vL6phUrIfbUCDPxFi6m9wHQthZXUJ2SgZryxMBL1",
         },
