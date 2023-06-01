@@ -9,7 +9,7 @@ const Table = ({ data }) => {
 
       {/* title for table */}
       <h6 className="text-xs uppercase font-[500] mx-1 my-3 text-[#5F6368]">
-        Contacts ( 27 )
+        Contacts ( {data.total} )
       </h6>
 
       <table className="w-full mb-3">
