@@ -9,9 +9,8 @@ export const contactsSlice = createSlice({
   initialState,
   reducers: {
     addContacts: (state, { payload }) => {
-      if (payload?.contacts?.data) {
-        state.contacts = [...state.contacts, ...payload?.contacts?.data];
-      }
+      // console.log(payload);
+      state.contacts = payload;
     },
   },
 });

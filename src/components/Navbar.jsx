@@ -2,13 +2,22 @@ import React, { useState } from "react";
 import { MdHelpOutline, MdOutlineMenu } from "react-icons/md";
 import { IoApps, IoSearchSharp, IoSettingsOutline } from "react-icons/io5";
 import LogoOutline from "../assets/Logo Outlined.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Dropdown from "./Dropdown";
 import DropdownItem from "./DropdownItem";
+import { useSelector } from "react-redux";
 
 const Navbar = ({ setShowSideBar, showSideBar }) => {
+  const navigate = useNavigate();
+  const { contacts } = useSelector((state) => state.contacts);
   const [focus, setFocus] = useState(false);
+  const [search, setSearch] = useState("");
+
+  const onSearchHandler = (e) => {
+    e.preventDefault();
+    if (search) navigate(`/search/${search}`);
+  };
 
   return (
     <nav className="min-h-[70px] w-full flex items-center">
@@ -33,18 +42,27 @@ const Navbar = ({ setShowSideBar, showSideBar }) => {
               : " bg-secondary rounded-lg"
           }`}
         >
-          <Link to="/search/songyi">
+          <button onClick={onSearchHandler}>
             <IoSearchSharp className="text-2xl text-gray-600" />
-          </Link>
-          <input
-            type="text"
-            className={`w-full h-full outline-none ${
-              focus ? "bg-white" : "bg-secondary "
-            }`}
-            placeholder="Search..."
-            onFocus={() => setFocus(true)}
-            onBlur={() => setFocus(false)}
-          />
+          </button>
+          <form className="w-full h-full" action="" onSubmit={onSearchHandler}>
+            <input
+              type="text"
+              className={`w-full h-full outline-none ${
+                focus ? "bg-white" : "bg-secondary "
+              }`}
+              placeholder={
+                contacts.length == 0
+                  ? "Unable to search. Please wait!"
+                  : "Search..."
+              }
+              onFocus={() => setFocus(true)}
+              onBlur={() => setFocus(false)}
+              disabled={!!contacts.length == 0}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </form>
         </div>
         <div className="flex gap-14 px-3">
           <div className="flex gap-8 items-center">

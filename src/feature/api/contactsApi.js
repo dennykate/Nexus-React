@@ -11,7 +11,7 @@ export const contactsApi = createApi({
       query: (page) => ({
         url: `/contact?page=${page}`,
         headers: {
-          Authorization: "Bearer 32|vL6phUrIfbUCDPxFi6m9wHQthZXUJ2SgZryxMBL1",
+          Authorization: "Bearer 383|LDXcEVKOBJQPx0O61uvB8LeJNOpI6JubU4tkHr6A",
         },
       }),
       providesTags: ["contactsApi"],
@@ -21,7 +21,7 @@ export const contactsApi = createApi({
         url: `/contact/${id}`,
         method: "DELETE",
         headers: {
-          Authorization: "Bearer 32|vL6phUrIfbUCDPxFi6m9wHQthZXUJ2SgZryxMBL1",
+          Authorization: "Bearer 383|LDXcEVKOBJQPx0O61uvB8LeJNOpI6JubU4tkHr6A",
         },
       }),
       invalidatesTags: ["contactsApi"],
@@ -30,7 +30,7 @@ export const contactsApi = createApi({
       query: (id) => ({
         url: `/contact/${id}`,
         headers: {
-          Authorization: "Bearer 32|vL6phUrIfbUCDPxFi6m9wHQthZXUJ2SgZryxMBL1",
+          Authorization: "Bearer 383|LDXcEVKOBJQPx0O61uvB8LeJNOpI6JubU4tkHr6A",
         },
       }),
       providesTags: ["contactsApi"],
@@ -41,7 +41,7 @@ export const contactsApi = createApi({
         method: "PUT",
         body: contact,
         headers: {
-          Authorization: "Bearer 32|vL6phUrIfbUCDPxFi6m9wHQthZXUJ2SgZryxMBL1",
+          Authorization: "Bearer 383|LDXcEVKOBJQPx0O61uvB8LeJNOpI6JubU4tkHr6A",
         },
       }),
       invalidatesTags: ["contactsApi"],
@@ -52,13 +52,18 @@ export const contactsApi = createApi({
         method: "POST",
         body: contact,
         headers: {
-          Authorization: "Bearer 32|vL6phUrIfbUCDPxFi6m9wHQthZXUJ2SgZryxMBL1",
+          Authorization: "Bearer 383|LDXcEVKOBJQPx0O61uvB8LeJNOpI6JubU4tkHr6A",
         },
       }),
       invalidatesTags: ["contactsApi"],
     }),
   }),
-})
+});
 
-
-export const { useGetAllQuery,useCreateContactMutation,useGetSingleContactQuery,useUpdateContactMutation,useDestroyMutation } = contactsApi;
+export const {
+  useGetAllQuery,
+  useCreateContactMutation,
+  useGetSingleContactQuery,
+  useUpdateContactMutation,
+  useDestroyMutation,
+} = contactsApi;
