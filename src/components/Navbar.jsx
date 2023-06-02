@@ -32,7 +32,9 @@ const Navbar = ({ setShowSideBar, showSideBar }) => {
               : " bg-secondary rounded-lg"
           }`}
         >
-          <IoSearchSharp className="text-2xl text-gray-600" />
+          <Link to="/search/songyi">
+            <IoSearchSharp className="text-2xl text-gray-600" />
+          </Link>
           <input
             type="text"
             className={`w-full h-full outline-none ${
