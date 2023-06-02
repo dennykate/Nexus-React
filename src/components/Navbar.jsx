@@ -3,15 +3,20 @@ import { MdHelpOutline, MdOutlineMenu } from "react-icons/md";
 import { IoApps, IoSearchSharp, IoSettingsOutline } from "react-icons/io5";
 import LogoOutline from "../assets/Logo Outlined.png";
 import { Link } from "react-router-dom";
-import Dropdown from "./Dropdown";
 
-const Navbar = ({setShowSideBar,showSideBar}) => {
+import Dropdown from "./Dropdown";
+import DropdownItem from "./DropdownItem";
+
+const Navbar = ({ setShowSideBar, showSideBar }) => {
   const [focus, setFocus] = useState(false);
- 
+
   return (
     <nav className="min-h-[70px] w-full flex items-center">
       <div className="flex gap-3 items-center w-[20%] h-full px-3">
-        <button onClick={()=>setShowSideBar(!showSideBar)} className="w-[50px] h-[50px] rounded-full flex justify-center items-center bg-white hover:bg-secondary">
+        <button
+          onClick={() => setShowSideBar(!showSideBar)}
+          className="w-[50px] h-[50px] rounded-full flex justify-center items-center bg-white hover:bg-secondary"
+        >
           <MdOutlineMenu className="text-2xl text-gray-600" />
         </button>
         <Link to={"/"}>
@@ -28,7 +33,9 @@ const Navbar = ({setShowSideBar,showSideBar}) => {
               : " bg-secondary rounded-lg"
           }`}
         >
-          <IoSearchSharp className="text-2xl text-gray-600" />
+          <Link to="/search/songyi">
+            <IoSearchSharp className="text-2xl text-gray-600" />
+          </Link>
           <input
             type="text"
             className={`w-full h-full outline-none ${
@@ -41,12 +48,16 @@ const Navbar = ({setShowSideBar,showSideBar}) => {
         </div>
         <div className="flex gap-14 px-3">
           <div className="flex gap-8 items-center">
-            <button className="">
-              <MdHelpOutline className="text-xl text-gray-600" />
-            </button>
-            <button>
-              <IoSettingsOutline className="text-xl text-gray-600" />
-            </button>
+            <Dropdown Icon={MdHelpOutline}>
+              {["Send Feedback", "Help"].map((data, index) => (
+                <DropdownItem key={index} name={data} />
+              ))}
+            </Dropdown>
+            <Dropdown Icon={IoSettingsOutline}>
+              {["Undo Changes", "More Settings"].map((data, index) => (
+                <DropdownItem key={index} name={data} />
+              ))}
+            </Dropdown>
           </div>
           <div className="flex items-center gap-2">
             <button className="w-[40px] h-[40px] rounded-full flex justify-center items-center bg-white hover:bg-secondary">
