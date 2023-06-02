@@ -9,6 +9,7 @@ import Dropdown from "./Dropdown";
 import DropdownItem from "./DropdownItem";
 import { tableRowDropdownData } from "../utils/data";
 import { useDestroyMutation } from "../feature/api/contactsApi";
+import { Link } from "react-router-dom";
 
 const TableRow = ({ name, email, phone, id }) => {
   const [destroy] = useDestroyMutation();
@@ -45,9 +46,11 @@ const TableRow = ({ name, email, phone, id }) => {
           <button className="text-[#5F6368] hover:text-black">
             <AiOutlineStar size={19} />
           </button>
-          <button className="text-[#5F6368] hover:text-black">
-            <BiPencil size={19} />
-          </button>
+
+          <Link to={`/edit/${id}`}>
+            <BiPencil size={19} className="text-[#5F6368] hover:text-black" />
+          </Link>
+
           <Dropdown Icon={BiDotsVerticalRounded}>
             {tableRowDropdownData.map((data, index) => (
               <DropdownItem key={index} Icon={data?.Icon} name={data?.name} />

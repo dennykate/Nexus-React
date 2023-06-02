@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 
 import Layout from "../components/Layout";
 import Table from "../components/Table";
 import { useGetAllQuery } from "../feature/api/contactsApi";
 import Pagination from "../components/Pagination";
 import Loading from "../components/Loading";
-import { addContacts } from "../feature/service/contactsSlice";
 
 const Contacts = () => {
-  const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const { data, error, isLoading } = useGetAllQuery(page);
-  dispatch(addContacts(data));
 
   const handlePageClick = (e) => {
     setPage(e.selected + 1);

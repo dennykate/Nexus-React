@@ -4,37 +4,57 @@ import Input from "../components/Input";
 import Layout from "../components/Layout";
 import { BiImageAdd, BiPlus } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaAddressBook, FaRegUser } from "react-icons/fa";
 import { MdLocalPhone, MdOutlineMail } from "react-icons/md";
-import { useCreateContactMutation } from "../feature/api/contactsApi";
+import {
+  useCreateContactMutation,
+  useGetSingleContactQuery,
+  useUpdateContactMutation,
+} from "../feature/api/contactsApi";
 import toast, { Toaster } from "react-hot-toast";
+import { useEffect } from "react";
 
-const Create = () => {
-  const navigate = useNavigate("");
+const Edit = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { data, isLoading } = useGetSingleContactQuery(id);
+  const contact = data?.contact;
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
-  const [createProduct] = useCreateContactMutation();
+  const [updateProduct] = useUpdateContactMutation();
+
+  useEffect(() => {
+    if (data) {
+      setName(data?.contact?.name);
+      setPhone(data?.contact?.phone);
+      setEmail(data?.contact?.email);
+      setAddress(data?.contact?.address);
+    }
+  }, [data]);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    const contact = { name, phone, email, address };
+    const contact = { id, name, phone, email, address };
     console.log(contact);
-    const { data } = await createProduct(contact);
-    if(data){
-      toast.success("Successfully saved")
+    const { data } = await updateProduct(contact);
+    if (data) {
+      toast.success("Successfully updated");
     }
+
     console.log(data);
   };
   return (
     <Layout>
-      <Toaster position="bottom-center"/>
+      <Toaster position="bottom-center" />
       <div className="w-full h-full p-2 relative overflow-y-scroll">
-        <button className="absolute top-2 left-2 z-10" onClick={() => navigate("/")}>
-          <IoMdClose className="text-2xl" />
-        </button>
+        <Link to={"/"}>
+          <button className="absolute top-2 left-2 z-10">
+            <IoMdClose className="text-2xl" />
+          </button>
+        </Link>
         <div className="w-full border-b px-14 py-5 relative">
           <div className="flex gap-8 items-center">
             <div className="w-[160px] h-[160px] rounded-full bg-primary bg-opacity-30 flex justify-center items-center">
@@ -92,4 +112,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default Edit;

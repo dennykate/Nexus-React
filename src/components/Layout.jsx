@@ -5,7 +5,7 @@ import Sidebar from "./Sidebar";
 
 const Layout = ({ children }) => {
   const [showSideBar, setShowSideBar] = useState(true);
-
+  
   return (
     <div className="w-full h-screen flex flex-col">
       <Navbar setShowSideBar={setShowSideBar} showSideBar={showSideBar} />
