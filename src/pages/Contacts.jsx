@@ -6,14 +6,34 @@ import { useGetAllQuery } from "../feature/api/contactsApi";
 import Pagination from "../components/Pagination";
 import Loading from "../components/Loading";
 import CreateBtn from "../components/CreateBtn";
+import { getAllContacts } from "../helper/functions";
+import { useDispatch, useSelector } from "react-redux";
+import { addContacts } from "../feature/service/contactsSlice";
 
 const Contacts = () => {
+  const dispatch = useDispatch();
+  const { contacts } = useSelector((state) => state.contacts);
+
   const [page, setPage] = useState(1);
   const { data, error, isLoading } = useGetAllQuery(page);
-  const contacts = data?.contacts?.data;
+
+  const lastPage = data?.contacts?.last_page;
 
   const handlePageClick = (e) => {
     setPage(e.selected + 1);
+  };
+
+  useEffect(() => {
+    if (lastPage) getContacts();
+  }, [lastPage]);
+
+  const getContacts = async () => {
+    if (contacts.length == 0) {
+      const data = await getAllContacts(lastPage);
+
+      dispatch(addContacts(data));
+      // console.log(data);
+    }
   };
 
   return (
@@ -28,7 +48,8 @@ const Contacts = () => {
           />
         )}
       </div>
-          <CreateBtn/>
+
+      <CreateBtn />
       <div className="h-[20px]" />
     </Layout>
   );

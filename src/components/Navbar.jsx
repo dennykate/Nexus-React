@@ -2,13 +2,24 @@ import React, { useState } from "react";
 import { MdHelpOutline, MdOutlineMenu } from "react-icons/md";
 import { IoApps, IoSearchSharp, IoSettingsOutline } from "react-icons/io5";
 import LogoOutline from "../assets/Logo Outlined.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Dropdown from "./Dropdown";
 import DropdownItem from "./DropdownItem";
+import { useSelector } from "react-redux";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 const Navbar = ({ setShowSideBar, showSideBar }) => {
+  const navigate = useNavigate();
+  const { contacts } = useSelector((state) => state.contacts);
   const [focus, setFocus] = useState(false);
+  const [search, setSearch] = useState("");
+  const [showSearchInput, setShowSearchInput] = useState(false);
+
+  const onSearchHandler = (e) => {
+    e.preventDefault();
+    if (search) navigate(`/search/${search}`);
+  };
 
   return (
     <nav className="min-h-[70px] w-full flex items-center">
@@ -33,22 +44,68 @@ const Navbar = ({ setShowSideBar, showSideBar }) => {
               : " bg-secondary rounded-lg"
           }`}
         >
-          <Link to="/search/songyi">
+          <button onClick={onSearchHandler}>
             <IoSearchSharp className="text-2xl text-gray-600" />
-          </Link>
-          <input
-            type="text"
-            className={`w-full h-full outline-none ${
-              focus ? "bg-white" : "bg-secondary "
-            }`}
-            placeholder="Search..."
-            onFocus={() => setFocus(true)}
-            onBlur={() => setFocus(false)}
-          />
+          </button>
+          <form className="w-full h-full" action="" onSubmit={onSearchHandler}>
+            <input
+              type="text"
+              className={`w-full h-full outline-none ${
+                focus ? "bg-white" : "bg-secondary "
+              }`}
+              placeholder={
+                contacts.length == 0
+                  ? "Unable to search. Please wait!"
+                  : "Search..."
+              }
+              onFocus={() => setFocus(true)}
+              onBlur={() => setFocus(false)}
+              disabled={!!contacts.length == 0}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </form>
         </div>
         <div className="flex gap-5 lg:gap-14 px-3">
-          <button className="searchIcon justify-center items-center">
+          <button
+            onClick={() => setShowSearchInput(true)}
+            className="searchIcon justify-center items-center relative"
+          >
             <IoSearchSharp className="text-2xl text-gray-600" />
+
+            {showSearchInput && (
+              <div
+                className={`flex gap-5 items-center sm:w-[300px] w-[95%] h-[50px] p-3 bg-white rounded-t-lg shadow-md
+               sm:absolute sm:-top-3 sm:right-0 z-10 fixed top-1 left-1 border `}
+              >
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowSearchInput(false);
+                  }}
+                >
+                  <AiOutlineArrowLeft className="text-2xl text-gray-600" />
+                </button>
+                <form
+                  className="w-full h-full"
+                  action=""
+                  onSubmit={onSearchHandler}
+                >
+                  <input
+                    type="text"
+                    className={`w-full h-full outline-none  bg-white }`}
+                    placeholder={
+                      contacts.length == 0
+                        ? "Unable to search. Please wait!"
+                        : "Search..."
+                    }
+                    disabled={!!contacts.length == 0}
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                </form>
+              </div>
+            )}
           </button>
           <div className="flex gap-5 lg:gap-8 items-center">
             <Dropdown Icon={MdHelpOutline}>

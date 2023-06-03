@@ -12,6 +12,8 @@ export const contactsSlice = createSlice({
       if (payload) {
         state.contacts = [...state.contacts, ...payload];
       }
+      // console.log(payload);
+      state.contacts = payload;
     },
   },
 });
