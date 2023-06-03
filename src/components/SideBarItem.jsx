@@ -16,7 +16,7 @@ const SideBarItem = ({ Icon, name, DropdownIcon, pathname }) => {
       <button
         className={`flex justify-between items-center ${
           !active && "hover:bg-secondary hover:rounded-r-full"
-        } w-full h-[40px] px-8 ${
+        } w-full h-[40px] px-5 ${
           active && "bg-primary bg-opacity-10 rounded-r-full text-primary"
         }`}
       >

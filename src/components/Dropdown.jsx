@@ -10,7 +10,7 @@ const Dropdown = ({ children, data, Icon }) => {
       </button>
       <div className="relative">
         <div
-          className={`absolute bg-white shadow-xl ${
+          className={`absolute z-10 bg-white shadow-xl ${
             active
               ? "top-1 right-4 opacity-100 scale-100"
               : "-top-10 -right-5 opacity-0 scale-0"

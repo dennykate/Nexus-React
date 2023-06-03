@@ -1,12 +1,12 @@
-import { FaRegUser } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa/index.js";
 import {
   IoArchiveOutline,
   IoInformationCircleOutline,
   IoTrashOutline,
-} from "react-icons/io5";
-import { MdOutlineAutoFixHigh } from "react-icons/md";
-import { RxCounterClockwiseClock } from "react-icons/rx";
-import { AiFillPrinter, AiOutlineUpload } from "react-icons/ai";
+} from "react-icons/io5/index.js";
+import { MdOutlineAutoFixHigh } from "react-icons/md/index.js";
+import { RxCounterClockwiseClock } from "react-icons/rx/index.js";
+import { AiFillPrinter, AiOutlineUpload } from "react-icons/ai/index.js";
 
 export const randomColors = [
   "bg-[#FF5733]",

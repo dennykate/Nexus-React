@@ -5,10 +5,12 @@ import Table from "../components/Table";
 import { useGetAllQuery } from "../feature/api/contactsApi";
 import Pagination from "../components/Pagination";
 import Loading from "../components/Loading";
+import CreateBtn from "../components/CreateBtn";
 
 const Contacts = () => {
   const [page, setPage] = useState(1);
   const { data, error, isLoading } = useGetAllQuery(page);
+  const contacts = data?.contacts?.data;
 
   const handlePageClick = (e) => {
     setPage(e.selected + 1);
@@ -26,7 +28,7 @@ const Contacts = () => {
           />
         )}
       </div>
-
+          <CreateBtn/>
       <div className="h-[20px]" />
     </Layout>
   );
