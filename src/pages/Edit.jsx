@@ -49,14 +49,29 @@ const Edit = () => {
   return (
     <Layout>
       <Toaster position="bottom-center" />
+      <div className="w-full flex lg:hidden justify-between items-center  p-5 border-b">
+        <div className="flex gap-3">
+          <button className="" onClick={() => navigate("/")}>
+            <IoMdClose className="text-2xl" />
+          </button>
+          <h1 className="text-gray-600 text-xl">Edit Contact</h1>
+        </div>
+        <button
+          type="submit"
+          form="inputForm"
+          className="px-5 py-2 rounded-md bg-secondary text-gray-400"
+        >
+          <span className="text-sm">Save</span>
+        </button>
+      </div>
       <div className="w-full h-full p-2 relative overflow-y-scroll">
         <Link to={"/"}>
-          <button className="absolute top-2 left-2 z-10">
+          <button className="lg:block hidden absolute top-2 left-2 z-10">
             <IoMdClose className="text-2xl" />
           </button>
         </Link>
-        <div className="w-full border-b px-14 py-5 relative">
-          <div className="flex gap-8 items-center">
+        <div className="w-full lg:border-b px-14 py-5 relative">
+          <div className="lg:flex-row flex flex-col lg:justify-start gap-8 items-center">
             <div className="w-[160px] h-[160px] rounded-full bg-primary bg-opacity-30 flex justify-center items-center">
               <BiImageAdd className=" text-4xl" />
             </div>
@@ -68,7 +83,7 @@ const Edit = () => {
           <button
             type="submit"
             form="inputForm"
-            className=" absolute bottom-[20px] right-[150px]  px-5 py-2 rounded-md bg-secondary text-gray-400"
+            className="lg:block hidden absolute bottom-[20px] right-[150px]  px-5 py-2 rounded-md bg-secondary text-gray-400"
           >
             <span className="text-sm">Save</span>
           </button>
