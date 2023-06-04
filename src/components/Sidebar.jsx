@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 
 const Sidebar = ({ showSideBar }) => {
   const [active, setActive] = useState(false);
+
   return (
     <div
       className={` ${
@@ -20,10 +21,10 @@ const Sidebar = ({ showSideBar }) => {
       } `}
     >
       <Link to={"/create"}>
-      <button className="flex gap-3 items-center border rounded-full shadow-md w-[200px] px-4 py-[10px] hover:bg-[#F6FAFE] hover:shadow-xl mt-5 mx-2">
-        <GoPlus className="text-primary text-3xl" />
-        <span className="text-sm tracking-wide">Create contact</span>
-      </button>
+        <button className="flex gap-3 items-center border rounded-full shadow-md w-[200px] px-4 py-[10px] hover:bg-[#F6FAFE] hover:shadow-xl mt-5 mx-2">
+          <GoPlus className="text-primary text-3xl" />
+          <span className="text-sm tracking-wide">Create contact</span>
+        </button>
       </Link>
       <div className="">
         {sideBarItem.map((item, index) => (

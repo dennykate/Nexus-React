@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
 const SideBarItem = ({ Icon, name, DropdownIcon, pathname }) => {
   const [active, setActive] = useState(false);
+  const { total } = useSelector((state) => state.contacts);
   const currentPathName = useLocation().pathname;
 
   useEffect(() => {
@@ -24,7 +26,9 @@ const SideBarItem = ({ Icon, name, DropdownIcon, pathname }) => {
           <Icon className="" />
           <span className="text-sm tracking-wide">{name}</span>
         </div>
-        {/* <span className="text-primary text-sm">41</span> */}
+        {name == "Contacts" && total && (
+          <span className="text-primary text-sm">{total}</span>
+        )}
         {DropdownIcon && (
           <div className="hover:bg-gray-300 rounded-full">
             <DropdownIcon className="text-xl text-gray-600" />

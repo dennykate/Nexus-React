@@ -3,22 +3,24 @@ import { faker } from "@faker-js/faker";
 import { RxDragHandleDots2 } from "react-icons/rx";
 
 import { getRandomColor } from "../helper/functions";
+import { useEffect } from "react";
 
 const TableRowProfile = ({ name }) => {
   const [checked, setChecked] = useState(false);
   const image = faker.internet.avatar();
+  const [bgColor, setBgColor] = useState("");
+
+  useEffect(() => {
+    setBgColor(getRandomColor());
+  }, []);
 
   return (
     <div className="w-[40px] h-full relative flex items-center pl-2">
       <div
         className={`w-[30px] h-[30px] rounded-full flex justify-center items-center text-white
-           uppercase font-[400] group-hover:hidden ${getRandomColor()} overflow-hidden`}
+           uppercase font-[400] group-hover:hidden ${bgColor} overflow-hidden`}
       >
-        {name.length > 6 ? (
-          <img src={image} alt="profile" className="w-full h-full" />
-        ) : (
-          name.slice(0, 1)
-        )}
+        {name.slice(0, 1)}
       </div>
 
       {checked && (

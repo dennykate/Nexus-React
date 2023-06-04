@@ -7,26 +7,30 @@ import Pagination from "../components/Pagination";
 import Loading from "../components/Loading";
 import { getAllContacts } from "../helper/functions";
 import { useDispatch, useSelector } from "react-redux";
-import { addContacts } from "../feature/service/contactsSlice";
+import { addContacts, addTotal } from "../feature/services/contactsSlice";
 
 const Contacts = () => {
   const dispatch = useDispatch();
   const { contacts } = useSelector((state) => state.contacts);
   const [page, setPage] = useState(1);
   const { data, error, isLoading } = useGetAllQuery(page);
-  const perPage = data?.contacts?.per_page;
+  const lastPage = data?.contacts?.last_page;
 
   const handlePageClick = (e) => {
     setPage(e.selected + 1);
   };
 
   useEffect(() => {
-    if (perPage) getContacts();
-  }, [perPage]);
+    if (data) dispatch(addTotal(data));
+  }, [data]);
+
+  useEffect(() => {
+    if (lastPage) getContacts();
+  }, [lastPage]);
 
   const getContacts = async () => {
     if (contacts.length == 0) {
-      const data = await getAllContacts(perPage);
+      const data = await getAllContacts(lastPage);
 
       dispatch(addContacts(data));
       // console.log(data);
