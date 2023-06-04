@@ -14,7 +14,7 @@ const seeding = async (count) => {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer 32|vL6phUrIfbUCDPxFi6m9wHQthZXUJ2SgZryxMBL1",
+          Authorization: "Bearer 383|LDXcEVKOBJQPx0O61uvB8LeJNOpI6JubU4tkHr6A",
         },
       }
     );
