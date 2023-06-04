@@ -10,27 +10,32 @@ export const authApi = createApi({
       query: (user) => ({
         url: "/register",
         method: "POST",
-        body: user
+        body: user,
       }),
       invalidatesTags: ["authApi"],
     }),
     login: builder.mutation({
-        query: (user) => ({
-            url: "/login",
-            method: "POST",
-            body:user
-        }),
-        invalidatesTags : ["authApi"]
-    }),
-    logout : builder.mutation({
-      query:(token)=>({
-        url:"/user-logout",
-        method : "POST",
-        headers : {authorization : `Bearer ${token}`}
+      query: (user) => ({
+        url: "/login",
+        method: "POST",
+        body: user,
       }),
-      invalidatesTags:['authApi']
-    })
-    
+      invalidatesTags: ["authApi"], 
+    }),
+    logout: builder.mutation({
+      query: (token) => {
+        // console.log(token);
+        return {
+          url: "/user-logout",
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+      invalidatesTags: ["authApi"],
+    }),
   }),
 });
-export const { useRegisterMutation , useLoginMutation,useLogoutMutation } = authApi;
+export const { useRegisterMutation, useLoginMutation, useLogoutMutation } =
+  authApi;

@@ -4,6 +4,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../feature/api/authApi";
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
 import "animate.css";
+import { useDispatch } from "react-redux";
+import { addUser } from "../feature/services/authSlice";
 
 const LoginForm = () => {
   const location = useLocation();
@@ -33,6 +35,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [login] = useLoginMutation();
 
   // console.log(user);
@@ -41,8 +44,9 @@ const LoginForm = () => {
     e.preventDefault();
     const user = { email, password };
     const { data } = await login(user);
-    console.log(data);
+    // console.log(data);
     if (data?.success) {
+      dispatch(addUser(data));
       navigate("/");
     }
   };
@@ -139,7 +143,7 @@ const LoginForm = () => {
                   <input
                     className="py-2 px-[15px] w-full  border-[1px] rounded-md mb-5 md:mb-8 md:py-3 xl:mr-3 xl:mb-4 2xl:mr-5 focus-within:outline-none  "
                     type={showPassword ? "text" : "password"}
-                  required
+                    required
                     placeholder="*******"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -170,7 +174,10 @@ const LoginForm = () => {
                     </label>
                   </div>
                   <div className="">
-                    <Link to="/forgetpassword" className="text-[15px] text-primary font-semibold underline cursor-pointer lg:text-sm xl:text-[18px]">
+                    <Link
+                      to="/forgetpassword"
+                      className="text-[15px] text-primary font-semibold underline cursor-pointer lg:text-sm xl:text-[18px]"
+                    >
                       Forgot Password
                     </Link>
                   </div>
@@ -200,4 +207,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
