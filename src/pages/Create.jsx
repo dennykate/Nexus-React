@@ -9,8 +9,11 @@ import { FaAddressBook, FaRegUser } from "react-icons/fa";
 import { MdLocalPhone, MdOutlineMail } from "react-icons/md";
 import { useCreateContactMutation } from "../feature/api/contactsApi";
 import toast, { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { increaseTotal } from "../feature/services/contactsSlice";
 
 const Create = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -23,16 +26,20 @@ const Create = () => {
     const contact = { name, phone, email, address };
     console.log(contact);
     const { data } = await createProduct(contact);
-    if(data){
-      toast.success("Successfully saved")
+    if (data) {
+      toast.success("Successfully saved");
+      dispatch(increaseTotal());
     }
     console.log(data);
   };
   return (
     <Layout>
-      <Toaster position="bottom-center"/>
+      <Toaster position="bottom-center" />
       <div className="w-full h-full p-2 relative overflow-y-scroll">
-        <button className="absolute top-2 left-2 z-10" onClick={() => navigate("/")}>
+        <button
+          className="absolute top-2 left-2 z-10"
+          onClick={() => navigate("/")}
+        >
           <IoMdClose className="text-2xl" />
         </button>
         <div className="w-full border-b px-14 py-5 relative">

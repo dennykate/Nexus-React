@@ -9,21 +9,21 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 const TableHead = () => {
   return (
     <div className="w-full flex items-center border-b">
-      <div className="lg:w-[20%] w-[40%] h-[50px] flex items-center justify-start px-1">
+      <div className="lg:w-[25%] xl:w-[20%] sm:w-[40%] w-[70%] h-[50px] flex items-center justify-start px-1">
         <h1 className=" font-[500] text-sm text-[#5F6368]">Name</h1>
       </div>
-      <div className="lg:w-[20%] w-[40%] h-[50px] flex items-center justify-start px-1">
+      <div className="lg:w-[25%] xl:w-[20%] w-[40%] h-[50px] sm:flex hidden items-center justify-start px-1">
         <h1 className=" font-[500] text-sm text-[#5F6368]">Email</h1>
       </div>
-      <div className="w-[20%] h-[50px] lg:flex hidden items-center justify-start px-1">
+      <div className="xl:w-[20%] w-[25%] h-[50px] lg:flex hidden items-center justify-start px-1">
         <h1 className=" font-[500] text-sm text-[#5F6368]">Phone number</h1>
       </div>
-      <div className="w-[20%] h-[50px] xl:flex hidden items-center justify-start px-1">
+      <div className="xl:w-[20%] w-[25%] h-[50px] xl:flex hidden items-center justify-start px-1">
         <h1 className=" font-[500] text-sm text-[#5F6368]">
           Job title & description
         </h1>
       </div>
-      <div className="w-[20%] h-[50px] flex items-center gap-4 justify-end pr-3">
+      <div className="sm:w-[20%] w-[30%] h-[50px] flex items-center gap-4 justify-end pr-3">
         <button datatooltip="Printer" aria-label="Printer">
           <AiFillPrinter size={19} color="#5F6368" />
         </button>

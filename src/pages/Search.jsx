@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-
-import Layout from "../components/Layout";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import Loading from "../components/Loading";
+
+import { storeForFrequents } from "../feature/services/frequentsSlice";
 import Table from "../components/Table";
-import { storeForFrequent } from "../helper/functions";
+import Layout from "../components/Layout";
+import Error from "../components/Error";
+import SearchGuard from "../components/SearchGuard";
 
 const Search = () => {
-  const navigate = useNavigate();
-  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const [data, setData] = useState(null);
   const { contacts } = useSelector((state) => state.contacts);
   const { id } = useParams();
-
-  if (contacts.length == 0) navigate("/");
 
   useEffect(() => {
     searchContacts();
@@ -26,13 +25,19 @@ const Search = () => {
       }
     });
 
-    if (searchContactsArr) storeForFrequent(searchContactsArr[0]);
+    if (searchContactsArr.length > 0)
+      dispatch(storeForFrequents(searchContactsArr[0]));
 
     setData({ data: searchContactsArr, total: searchContactsArr.length });
   };
 
   return (
-    <Layout>{data.length == 0 ? <Loading /> : <Table data={data} />}</Layout>
+    <SearchGuard>
+      <Layout>
+        {data !== null && data.data.length > 0 && <Table data={data} />}
+        {data && data.data.length == 0 && <Error />}
+      </Layout>
+    </SearchGuard>
   );
 };
 

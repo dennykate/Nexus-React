@@ -15,8 +15,11 @@ export const contactsSlice = createSlice({
     addTotal: (state, { payload }) => {
       state.total = payload.contacts.total;
     },
+    increaseTotal: (state) => {
+      state.total += 1;
+    },
   },
 });
 
-export const { addContacts, addTotal } = contactsSlice.actions;
+export const { addContacts, addTotal, increaseTotal } = contactsSlice.actions;
 export default contactsSlice.reducer;

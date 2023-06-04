@@ -14,7 +14,7 @@ const Sidebar = ({ showSideBar }) => {
     <div
       className={` ${
         showSideBar ? "w-[20%] " : "w-0 "
-      } transition-all ease-in-out duration-200 overflow-y-auto flex flex-col gap-5 text-gray-600 ${
+      } transition-all ease-in-out lg:flex hidden duration-200 overflow-y-auto  flex-col gap-5 text-gray-600 ${
         showSideBar
           ? "animate__animated animate__slideInLeft"
           : "animate__animated animate__slideOutLeft"

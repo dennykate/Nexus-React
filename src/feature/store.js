@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { authApi } from "./api/authApi";
+import { contactsApi } from "./api/contactsApi";
 import authSlice from "./services/authSlice";
 import contactsSlice from "./services/contactsSlice";
-import { contactsApi } from "./api/contactsApi";
+import frequentsSlice from "./services/frequentsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     [contactsApi.reducerPath]: contactsApi.reducer,
     authSlice: authSlice,
     contacts: contactsSlice,
+    frequents: frequentsSlice,
   },
 
   middleware: (getDefaultMiddleware) =>

@@ -5,8 +5,7 @@ import { RxDragHandleDots2 } from "react-icons/rx";
 import { getRandomColor } from "../helper/functions";
 import { useEffect } from "react";
 
-const TableRowProfile = ({ name }) => {
-  const [checked, setChecked] = useState(false);
+const TableRowProfile = ({ name, checked, setChecked }) => {
   const image = faker.internet.avatar();
   const [bgColor, setBgColor] = useState("");
 
