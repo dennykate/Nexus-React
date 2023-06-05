@@ -25,44 +25,46 @@ const TableRow = ({ name, email, phone, id }) => {
   };
 
   return (
-    <tr className="w-full flex items-center h-[60px] group cursor-pointer hover:bg-[#F2F2F2]">
-      <th className="lg:w-[20%] w-[40%] h-full flex items-center justify-start gap-4">
-        <TableRowProfile name={name} />
-        <h1 className=" font-[400] text-[#5F6368]">{name}</h1>
-      </th>
-      <th className="lg:w-[20%] w-[40%] h-full flex items-center justify-start px-1 ">
-        <h1 className=" font-[400] text-[#5F6368]">
-          {email.length > 18 ? email.slice(0, 18) + "..." : email}
-        </h1>
-      </th>
-      <th className="w-[20%] h-full lg:flex hidden items-center justify-start px-1">
-        <h1 className=" font-[400] text-[#5F6368]">{phone}</h1>
-      </th>
-      <th className="w-[20%] h-full xl:flex hidden items-center justify-start px-1">
-        <h1 className=" font-[400] text-[#5F6368]"></h1>
-      </th>
-      <th className="w-[20%] h-full hidden items-center gap-4 justify-end pr-3 group-hover:flex">
-        <button className="text-[#5F6368] hover:text-black">
-          <AiOutlineStar size={19} />
-        </button>
+    <Link to={`/detail/${id}`}>
+      <tr className="w-full flex items-center h-[60px] group cursor-pointer hover:bg-[#F2F2F2]">
+        <th className="lg:w-[20%] w-[40%] h-full flex items-center justify-start gap-4">
+          <TableRowProfile name={name} />
+          <h1 className=" font-[400] text-[#5F6368]">{name}</h1>
+        </th>
+        <th className="lg:w-[20%] w-[40%] h-full flex items-center justify-start px-1 ">
+          <h1 className=" font-[400] text-[#5F6368]">
+            {email.length > 18 ? email.slice(0, 18) + "..." : email}
+          </h1>
+        </th>
+        <th className="w-[20%] h-full lg:flex hidden items-center justify-start px-1">
+          <h1 className=" font-[400] text-[#5F6368]">{phone}</h1>
+        </th>
+        <th className="w-[20%] h-full xl:flex hidden items-center justify-start px-1">
+          <h1 className=" font-[400] text-[#5F6368]"></h1>
+        </th>
+        <th className="w-[20%] h-full hidden items-center gap-4 justify-end pr-3 group-hover:flex">
+          <button className="text-[#5F6368] hover:text-black">
+            <AiOutlineStar size={19} />
+          </button>
 
-        <Link to={`/edit/${id}`}>
-          <BiPencil size={19} className="text-[#5F6368] hover:text-black" />
-        </Link>
+          <Link to={`/edit/${id}`}>
+            <BiPencil size={19} className="text-[#5F6368] hover:text-black" />
+          </Link>
 
-        <Dropdown Icon={BiDotsVerticalRounded}>
-          {tableRowDropdownData.map((data, index) => (
-            <DropdownItem key={index} Icon={data?.Icon} name={data?.name} />
-          ))}
-          <DropdownItem
-            Icon={IoTrashOutline}
-            name="Delete"
-            onClick={deleteHandler}
-          />
-          <Toaster />
-        </Dropdown>
-      </th>
-    </tr>
+          <Dropdown Icon={BiDotsVerticalRounded}>
+            {tableRowDropdownData.map((data, index) => (
+              <DropdownItem key={index} Icon={data?.Icon} name={data?.name} />
+            ))}
+            <DropdownItem
+              Icon={IoTrashOutline}
+              name="Delete"
+              onClick={deleteHandler}
+            />
+            <Toaster />
+          </Dropdown>
+        </th>
+      </tr>
+    </Link>
   );
 };
 

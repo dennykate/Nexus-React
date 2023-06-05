@@ -13,12 +13,12 @@ const Sidebar = ({ showSideBar }) => {
   return (
     <div
       className={` ${
-        showSideBar ? "lg:w-[20%] w-[300px] " : "w-0"
+        showSideBar ? "lg:w-[20%] w-[250px] " : "w-0"
       } transition-all lg:static absolute top-0 left-0 ease-in-out duration-200 overflow-y-auto flex flex-col gap-5 text-gray-600 ${
         showSideBar
           ? "animate__animated animate__slideInLeft"
           : "animate__animated animate__slideOutLeft"
-      } bg-white  h-full z-20 `}
+      }   h-full z-20 bg-white lg:p-0 pr-3 lg:shadow-none shadow-lg`}
     >
       <Link to={"/create"}>
         <button className=" hidden lg:flex gap-3 items-center border rounded-full shadow-md w-[200px] px-4 py-[10px] hover:bg-[#F6FAFE] hover:shadow-xl mt-5 mx-2">

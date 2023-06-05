@@ -5,10 +5,12 @@ import Table from "../components/Table";
 import { useGetAllQuery } from "../feature/api/contactsApi";
 import Pagination from "../components/Pagination";
 import Loading from "../components/Loading";
-import CreateBtn from "../components/CreateBtn";
+
 import { getAllContacts } from "../helper/functions";
 import { useDispatch, useSelector } from "react-redux";
 import { addContacts } from "../feature/service/contactsSlice";
+import IsLgBtn from "../components/IsLgBtn";
+import { GoPlus } from "react-icons/go";
 
 const Contacts = () => {
   const dispatch = useDispatch();
@@ -49,8 +51,7 @@ const Contacts = () => {
         )}
       </div>
 
-      <CreateBtn />
-      <div className="h-[20px]" />
+      <IsLgBtn Icon={GoPlus} pathname="/create" bgColor={"white"} textColor={"text-primary"}/>
     </Layout>
   );
 };

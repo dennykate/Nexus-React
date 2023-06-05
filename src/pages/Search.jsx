@@ -5,7 +5,7 @@ import Layout from "../components/Layout";
 import { useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import Table from "../components/Table";
-import CreateBtn from "../components/CreateBtn";
+import IsLgBtn from "../components/IsLgBtn";
 
 const Search = () => {
   const [data, setData] = useState([]);
@@ -32,7 +32,12 @@ const Search = () => {
   return (
     <Layout>
       {data.length == 0 ? <Loading /> : <Table data={data} />}
-      <CreateBtn />
+      <IsLgBtn
+        Icon={GoPlus}
+        pathname="/create"
+        bgColor={"white"}
+        textColor={"text-primary"}
+      />
     </Layout>
   );
 };

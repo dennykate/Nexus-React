@@ -21,8 +21,13 @@ const Input = ({type,label,Icon,name,setName}) => {
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
         />
-        {(focus || name!== "") && (
-          <div className="absolute -top-[10px] left-3 px-[2px] bg-white text-sm text-primary">
+        {focus  && (
+          <div className={`absolute -top-[10px] left-3 px-[2px] bg-white text-sm text-primary `}>
+            {label}
+          </div>
+        )}
+        {name!=="" && !focus  && (
+          <div className={`absolute -top-[10px] left-3 px-[2px] bg-white text-sm text-gray-600 `}>
             {label}
           </div>
         )}

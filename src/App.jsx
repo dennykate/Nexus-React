@@ -8,6 +8,7 @@ import Frequent from "./pages/Frequent";
 import Person from "./pages/Person";
 import Search from "./pages/Search";
 import Edit from "./pages/Edit";
+import Detail from "./pages/Detail";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
       <Route path="/person/:id" element={<Person />} />
       <Route path="/search/:id" element={<Search />} />
       <Route path="/edit/:id" element={<Edit />} />
+      <Route path="/detail/:id" element={<Detail />} />
 
     </Routes>
   );
