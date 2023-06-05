@@ -33,6 +33,9 @@ const Navbar = ({ setShowSideBar, showSideBar }) => {
       navigate("/login");
     }
   };
+  const profileHandler = () =>{
+    navigate("/profile")
+  }
 
   return (
     <nav className="min-h-[70px] w-full flex items-center">
@@ -94,8 +97,8 @@ const Navbar = ({ setShowSideBar, showSideBar }) => {
 
             <Dropdown Component={<Profile name={user?.name} />}>
               <DropdownItem
-                name="Logout"
-                onClick={logoutHandler}
+                name="profile"
+                onClick={profileHandler}
                 Icon={MdOutlineLogout}
               />
               <DropdownItem

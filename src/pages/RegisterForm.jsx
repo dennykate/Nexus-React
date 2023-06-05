@@ -4,6 +4,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useRegisterMutation } from "../feature/api/authApi";
 import { useEffect } from "react";
 import "animate.css";
+import { Toaster, toast } from "react-hot-toast";
+import { PulseLoader } from "react-spinners";
 
 const RegisterForm = () => {
   const [name, setName] = useState("");
@@ -12,7 +14,7 @@ const RegisterForm = () => {
   const [password_confirmation, setConfirmed_password] = useState("");
 
   const navigate = useNavigate();
-  const [register] = useRegisterMutation();
+  const [register, {isLoading}] = useRegisterMutation();
 
   // console.log(user);
 
@@ -36,6 +38,9 @@ const RegisterForm = () => {
   const registerHandler = async (e) => {
     e.preventDefault();
     const user = { name, email, password, password_confirmation };
+    if (password.length < 8) {
+      return toast.error("Password must have at least 8 characters.");
+    }
     const { data } = await register(user);
     console.log(data);
     if (data?.success) {
@@ -83,14 +88,14 @@ const RegisterForm = () => {
           {/* register form  */}
           <div className="w-full  px-2 py-16  sm:px-8 md:py-7  bg-white  text-tertiary lg:py-20  xl:px-6   xl:py-16  ">
             {/* UpperRegister  */}
-            <div className="UpperRegister  flex   justify-between items-center px-5 mb-8 md:items-start md:mb-12 lg:flex-row   xl:flex-row xl:mb-2  ">
-              <h1 className="text-2xl font-bold md:mb-5 md:text-3xl lg:text-2xl xl:text-3xl">
+            <div className="UpperRegister  flex     justify-between  items-center px-5 mb-8 md:items-center md:mb-12 lg:flex-col lg:items-start  xl:flex-row xl:mb-2  ">
+              <h1 className="text-lg sm:text-2xl   font-bold md:mb-5 md:text-3xl lg:text-2xl xl:text-3xl">
                 Register
               </h1>
               <div className="ButtonPart border-[1px] border-tertiary ">
                 <Link to="/login">
                   <button
-                    className={`px-4 py-1 font-semibold text-md  h-full md:py-2 md:px-8 xl:py-3 xl:px-9 xl:text-lg 2xl:px-6  ${
+                    className={`px-2 py-1 font-semibold text-md  h-full md:py-2 md:px-8 xl:py-3 xl:px-9 xl:text-lg 2xl:px-6  ${
                       activeLink === "/login"
                         ? "bg-primary text-white"
                         : "bg-white text-black"
@@ -102,7 +107,7 @@ const RegisterForm = () => {
                 </Link>
                 <Link to="/register">
                   <button
-                    className={`px-4 py-1 font-semibold text-md md:py-2   xl:py-3 xl:px-9  xl:text-lg 2xl:px-6   ${
+                    className={`px-2 py-1 font-semibold text-md md:py-2   xl:py-3 xl:px-9  xl:text-lg 2xl:px-6   ${
                       activeLink === "/register"
                         ? "bg-primary text-white"
                         : "bg-white text-black"
@@ -116,7 +121,7 @@ const RegisterForm = () => {
             </div>
             {/* LowerRegister */}
             {/* w-full px-5 2xl:pr-28 md:px-28 lg:px-5 lg:pt-20 xl:pt-10 2xl:px-5 2xl:py-2 */}
-            <div className="LowerRegister w-full px-5 2xl:pr-28 md:px-28 lg:px-12 lg:pt-20  xl:pt-10 xl:px-5 2xl:px-5 2xl:py-2">
+            <div className="LowerRegister w-full px-5 2xl:pr-28 md:px-28 lg:px-12 lg:pt-10  xl:pt-10 xl:px-5 2xl:px-5 2xl:py-2">
               {/* register form  */}
               <form
                 action=""
@@ -157,17 +162,22 @@ const RegisterForm = () => {
                     onChange={(e) => setConfirmed_password(e.target.value)}
                   />
                 </div>
-                <button className="py-2 px-[15px] mb-3 w-full  bg-primary border-[1px] rounded-md text-white text-[18px] xl:mb-5 xl:py-3 hover:bg-[#0249bd] ease-in-out duration-500 cursor-pointer">
-                  Register
+                <button
+                type="submit"
+                  disabled={isLoading && true}
+                  className="py-2 px-[15px] mb-3 w-full  bg-primary border-[1px] rounded-md text-white text-[18px] xl:mb-5 xl:py-3 hover:bg-[#0249bd] ease-in-out duration-500 cursor-pointer" 
+                >
+                 
+                 {isLoading ? ( <PulseLoader className="mx-auto block" color="white" size="8px" />) : "Register"}
                 </button>
 
                 <div className="flex justify-center items-center  ">
-                  <p className="text-md font-semibold text-gray-500 pr-[5px] lg:text-sm xl:font-semibold select-none   ">
+                  <p className="text-md font-semibold text-gray-500 pr-[5px] lg:text-xs xl:font-semibold text-xs sm:text-md md:text-md select-none   ">
                     Already have an account?
                   </p>
                   <Link
                     to="/login"
-                    className="text-[15px] lg:text-sm text-primary font-semibold underline select-none"
+                    className="  lg:text-xs text-primary font-semibold underline text-xs sm:text-md md:text-sm select-none"
                   >
                     Go to Sign In
                   </Link>
@@ -176,6 +186,7 @@ const RegisterForm = () => {
             </div>
           </div>
         </div>
+        <Toaster />
       </div>
     </>
   );

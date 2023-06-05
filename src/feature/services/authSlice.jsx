@@ -14,12 +14,15 @@ export const authSlice = createSlice({
       state.token = payload.token;
       Cookies.set("user", JSON.stringify(state.user));
       Cookies.set("token", JSON.stringify(state.token));
+      Cookies.set("keepme",payload.keepme)
     },
     removeUser: (state) => {
       state.user = null;
       state.token = null;
+    
       Cookies.remove("user");
       Cookies.remove("token");
+      Cookies.remove("keepme");
     },
   },
 });

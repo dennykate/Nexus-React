@@ -11,19 +11,23 @@ import Frequent from "./pages/Frequent";
 import Person from "./pages/Person";
 import Search from "./pages/Search";
 import Edit from "./pages/Edit";
+import Profile from "./components/Profile";
+import UserProfile from "./pages/UserProfile";
 
 const App = () => {
   return (
     <Routes>
       <Route path="/login" element={<LoginForm />} />
       <Route path="/register" element={<RegisterForm />} />
-      <Route path="/" element={<Guard><Contacts /></Guard>} />
+      <Route path="/" element={   <Guard>     <Contacts />   </Guard>
+        }
+      />
       <Route path="/create" element={<Create />} />
       <Route path="/frequent" element={<Frequent />} />
       <Route path="/person/:id" element={<Person />} />
       <Route path="/search/:id" element={<Search />} />
       <Route path="/edit/:id" element={<Edit />} />
-
+      <Route path="/profile" element={<Guard><UserProfile /></Guard>} />
     </Routes>
   );
 };

@@ -6,10 +6,19 @@ import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
 import "animate.css";
 import { useDispatch } from "react-redux";
 import { addUser } from "../feature/services/authSlice";
+import Cookies from "js-cookie";
+import { Toaster, toast } from "react-hot-toast";
+import { PulseLoader } from "react-spinners";
 
 const LoginForm = () => {
   const location = useLocation();
-  console.log(location);
+  // console.log(location);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [login, { isLoading }] = useLoginMutation();
   const currentRoute = location?.pathname;
   const [activeLink, setActiveLink] = useState(currentRoute);
 
@@ -19,11 +28,24 @@ const LoginForm = () => {
     setBackDrop(window.innerWidth / 3);
   });
 
+  const redirectIfUserLogin = () => {
+    const token = Cookies.get("token");
+    const keepme = Cookies.get("keepme")
+      ? JSON.parse(Cookies.get("keepme"))
+      : Cookies.get("keepme");
+    // console.log(typeof  keepme)
+    if (keepme && token) {
+      return navigate("/");
+    }
+  };
+  redirectIfUserLogin();
   useEffect(() => {
     setBackDrop(window.innerWidth / 3);
   }, [setBackDrop]);
 
   const [showPassword, setShowPassword] = useState(false);
+  const [keepme, setkeepme] = useState(false);
+
   const togglePw = () => {
     setShowPassword(!showPassword);
   };
@@ -31,22 +53,19 @@ const LoginForm = () => {
     setActiveLink(link);
   };
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [login] = useLoginMutation();
-
   // console.log(user);
 
   const loginHandler = async (e) => {
     e.preventDefault();
+    console.log(keepme);
     const user = { email, password };
+    if (password.length < 8) {
+      return toast.error("Password must have at least 8 characters.");
+    }
     const { data } = await login(user);
     // console.log(data);
     if (data?.success) {
-      dispatch(addUser(data));
+      dispatch(addUser({ ...data, keepme }));
       navigate("/");
     }
   };
@@ -91,14 +110,14 @@ const LoginForm = () => {
           {/* login form  */}
           <div className="w-full  px-2 py-16  sm:px-8 md:py-7   bg-white  text-tertiary lg:py-20  xl:px-6 xl:py-16 ">
             {/* Upperlogin  */}
-            <div className="UpperRegister  flex   justify-between items-center px-5 mb-8 md:items-start md:mb-12 lg:flex-row   xl:flex-row xl:mb-2    ">
-              <h1 className="text-2xl font-bold md:mb-5 md:text-3xl xl:text-3xl">
+            <div className="UpperRegister  flex  justify-between lg:flex-col lg:items-start  items-center px-5 mb-8 md:items-center md:mb-12    xl:flex-row xl:mb-2  ">
+              <h1 className="text-lg sm:text-2xl   font-bold md:mb-5 md:text-3xl lg:text-2xl xl:text-3xl">
                 Login
               </h1>
               <div className="ButtonPart border-[1px] border-tertiary ">
                 <Link to="/login">
                   <button
-                    className={`px-4 py-1 font-semibold text-md  h-full md:py-2 md:px-8 xl:py-3 xl:px-9 xl:text-lg 2xl:px-6  ${
+                    className={`px-2 py-1 font-semibold text-md  h-full md:py-2 md:px-8 xl:py-3 xl:px-9 xl:text-lg 2xl:px-6  ${
                       activeLink === "/login"
                         ? "bg-primary text-white"
                         : "bg-white text-black"
@@ -110,7 +129,7 @@ const LoginForm = () => {
                 </Link>
                 <Link to="/register">
                   <button
-                    className={`px-4 py-1 font-semibold text-md md:py-2   xl:py-3 xl:px-9  xl:text-lg 2xl:px-6   ${
+                    className={`px-2 py-1 font-semibold text-md md:py-2   xl:py-3 xl:px-9  xl:text-lg 2xl:px-6   ${
                       activeLink === "/register"
                         ? "bg-primary text-white"
                         : "bg-white text-black"
@@ -124,7 +143,7 @@ const LoginForm = () => {
             </div>
             {/* LowerLogin */}
             <div className="LowerLogin w-full px-5 2xl:pr-28 md:px-28 lg:px-5 lg:pt-20 xl:pt-10 2xl:px-5 2xl:py-2  ">
-              {/* register form  */}
+              {/* login form  */}
               <form
                 action=""
                 onSubmit={loginHandler}
@@ -165,9 +184,10 @@ const LoginForm = () => {
                       <input
                         type="checkbox"
                         className="form-checkbox h-5 w-4 bg-gray-400   "
-                        required
+                        value={keepme}
+                        onClick={() => setkeepme(!keepme)}
                       />
-                      <span className="ml-2 text-gray-400 xl:text-[18px] lg:text-sm select-none ">
+                      <span className="ml-2 text-gray-400 xl:text-[18px] lg:text-sm text-xs sm:text-md md:text-md select-none ">
                         {" "}
                         Keep me logged in
                       </span>
@@ -176,23 +196,27 @@ const LoginForm = () => {
                   <div className="">
                     <Link
                       to="/forgetpassword"
-                      className="text-[15px] text-primary font-semibold underline cursor-pointer lg:text-sm xl:text-[18px]"
+                      className=" text-primary font-semibold underline cursor-pointer text-xs sm:text-md md:text-md lg:text-sm xl:text-[18px]"
                     >
                       Forgot Password
                     </Link>
                   </div>
                 </div>
-                <button className="py-2 px-[15px] mb-3 w-full  bg-primary border-[1px] rounded-md text-white text-[18px] xl:mb-5 xl:py-3 hover:bg-[#0249bd] ease-in-out duration-500 cursor-pointer ">
-                  Log in
+                <button
+                  type="submit"
+                  disabled={isLoading && true}
+                  className="py-2 px-[15px] mb-3 w-full  bg-primary border-[1px] rounded-md text-white text-[18px] xl:mb-5 xl:py-3 hover:bg-[#0249bd] ease-in-out duration-500 cursor-pointer "
+                >
+                {isLoading ? ( <PulseLoader className="mx-auto block" color="white" size="8px" />) : "Login"}
                 </button>
 
                 <div className="flex justify-center items-center  ">
-                  <p className="text-md font-semibold text-gray-500 pr-[5px] xl:font-semibold select-none    ">
+                  <p className="text-sm sm:text-md md:text-md font-semibold text-gray-500 pr-[5px] xl:font-semibold select-none    ">
                     Don't have an account?
                   </p>
                   <Link
                     to="/register"
-                    className="text-[15px] text-primary font-semibold underline select-none "
+                    className="text-sm sm:text-md md:text-md text-primary font-semibold underline select-none "
                   >
                     Register
                   </Link>
@@ -201,6 +225,7 @@ const LoginForm = () => {
             </div>
           </div>
         </div>
+        <Toaster />
       </div>
     </>
   );
