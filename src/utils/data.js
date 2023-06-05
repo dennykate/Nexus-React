@@ -4,7 +4,7 @@ import {
   IoInformationCircleOutline,
   IoTrashOutline,
 } from "react-icons/io5";
-import { MdOutlineAutoFixHigh } from "react-icons/md";
+import { MdOutlineAutoFixHigh, MdOutlineFavoriteBorder } from "react-icons/md";
 import { RxCounterClockwiseClock } from "react-icons/rx";
 import { AiFillPrinter, AiOutlineUpload } from "react-icons/ai";
 
@@ -41,6 +41,11 @@ export const sideBarItem = [
     Icon: RxCounterClockwiseClock,
     name: "Frequent",
     pathname: "/frequent",
+  },
+  {
+    Icon: MdOutlineFavoriteBorder,
+    name: "Favorite",
+    pathname: "/favorite",
   },
   {
     Icon: IoArchiveOutline,

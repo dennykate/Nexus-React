@@ -12,6 +12,7 @@ import { useDestroyMutation } from "../feature/api/contactsApi";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { removeFromFrequents } from "../feature/services/frequentsSlice";
+import { storeForFavorites } from "../feature/services/favoritesSlice";
 
 const TableRow = ({ name, email, phone, id, isFrequent }) => {
   const dispatch = useDispatch();
@@ -30,6 +31,10 @@ const TableRow = ({ name, email, phone, id, isFrequent }) => {
 
   const removeHandler = () => {
     dispatch(removeFromFrequents({ name, email }));
+  };
+
+  const addToFavoriteHandler = () => {
+    dispatch(storeForFavorites({ name, email, phone, id }));
   };
 
   return (
@@ -58,7 +63,10 @@ const TableRow = ({ name, email, phone, id, isFrequent }) => {
         <h1 className=" font-[400] text-base text-[#5F6368]"></h1>
       </th>
       <th className="sm:w-[20%] w-[30%] h-full hidden items-center gap-4 justify-end pr-3 group-hover:flex">
-        <button className="text-[#5F6368] hover:text-black">
+        <button
+          onClick={addToFavoriteHandler}
+          className="text-[#5F6368] hover:text-black"
+        >
           <AiOutlineStar size={19} />
         </button>
 

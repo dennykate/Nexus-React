@@ -9,6 +9,9 @@
   font-family: "Rubik", sans-serif;
 }
 
+.tooltip:hover .tooltiptext {
+  opacity: 1;
+}
 
 @tailwind base;
 @tailwind components;

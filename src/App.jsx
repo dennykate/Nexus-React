@@ -10,6 +10,7 @@ import Frequent from "./pages/Frequent";
 import Person from "./pages/Person";
 import Search from "./pages/Search";
 import Edit from "./pages/Edit";
+import Favorite from "./pages/Favorite";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
       <Route path="/" element={<Contacts />} />
       <Route path="/create" element={<Create />} />
       <Route path="/frequent" element={<Frequent />} />
+      <Route path="/favorite" element={<Favorite />} />
       <Route path="/person/:id" element={<Person />} />
       <Route path="/search/:id" element={<Search />} />
       <Route path="/edit/:id" element={<Edit />} />

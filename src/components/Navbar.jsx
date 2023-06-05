@@ -4,12 +4,12 @@ import { IoApps, IoSearchSharp, IoSettingsOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
+import { useLoginMutation, useLogoutMutation } from "../feature/api/authApi";
+
 import Profile from "./Profile";
 import { removeUser } from "../feature/services/authSlice";
-import { useLoginMutation, useLogoutMutation } from "../feature/api/authApi";
 import Tooltip from "./Tooltip";
 import TooltipText from "./TooltipText";
-import "./Tooltip.css";
 
 import LogoOutline from "../assets/Logo Outlined.png";
 import Dropdown from "./Dropdown";

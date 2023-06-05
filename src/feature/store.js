@@ -4,6 +4,7 @@ import { contactsApi } from "./api/contactsApi";
 import authSlice from "./services/authSlice";
 import contactsSlice from "./services/contactsSlice";
 import frequentsSlice from "./services/frequentsSlice";
+import favoritesSlice from "./services/favoritesSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     authSlice: authSlice,
     contacts: contactsSlice,
     frequents: frequentsSlice,
+    favorites: favoritesSlice,
   },
 
   middleware: (getDefaultMiddleware) =>

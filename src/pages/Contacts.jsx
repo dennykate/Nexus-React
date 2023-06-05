@@ -8,6 +8,7 @@ import Loading from "../components/Loading";
 import { getAllContacts } from "../helper/functions";
 import { useDispatch, useSelector } from "react-redux";
 import { addContacts, addTotal } from "../feature/services/contactsSlice";
+import { getFavorites } from "../feature/services/favoritesSlice";
 
 const Contacts = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,10 @@ const Contacts = () => {
   const handlePageClick = (e) => {
     setPage(e.selected + 1);
   };
+
+  useEffect(() => {
+    dispatch(getFavorites());
+  }, [contacts]);
 
   useEffect(() => {
     if (data) dispatch(addTotal(data));
