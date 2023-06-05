@@ -9,8 +9,11 @@ import { FaAddressBook, FaRegUser } from "react-icons/fa";
 import { MdLocalPhone, MdOutlineMail } from "react-icons/md";
 import { useCreateContactMutation } from "../feature/api/contactsApi";
 import toast, { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { addSingleContact } from "../feature/services/contactsSlice";
 
 const Create = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -21,22 +24,41 @@ const Create = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     const contact = { name, phone, email, address };
-    console.log(contact);
     const { data } = await createProduct(contact);
-    if(data){
-      toast.success("Successfully saved")
+    if (data) {
+      dispatch(addSingleContact(data.contact));
+      toast.success("Successfully saved");
     }
     console.log(data);
   };
   return (
     <Layout>
-      <Toaster position="bottom-center"/>
-      <div className="w-full h-full p-2 relative overflow-y-scroll">
-        <button className="absolute top-2 left-2 z-10" onClick={() => navigate("/")}>
+      <Toaster position="bottom-center" />
+      <div className="w-full flex lg:hidden justify-between items-center  p-5 border-b">
+        <div className="flex gap-3">
+          <button className="" onClick={() => navigate("/")}>
+            <IoMdClose className="text-2xl" />
+          </button>
+          <h1 className="text-gray-600 text-xl">Create Contact</h1>
+        </div>
+        <button
+          type="submit"
+          form="inputForm"
+          className="px-5 py-2 rounded-md bg-secondary text-gray-400"
+        >
+          <span className="text-sm">Save</span>
+        </button>
+      </div>
+      <div className="w-full h-full p-2 lg:relative overflow-y-scroll">
+        <button
+          className="lg:block hidden absolute top-2 left-2 z-10"
+          onClick={() => navigate("/")}
+        >
           <IoMdClose className="text-2xl" />
         </button>
-        <div className="w-full border-b px-14 py-5 relative">
-          <div className="flex gap-8 items-center">
+
+        <div className="w-full lg:border-b px-14 lg:py-5 py-3 relative">
+          <div className="lg:flex-row flex flex-col gap-8 lg:justify-start items-center ">
             <div className="w-[160px] h-[160px] rounded-full bg-primary bg-opacity-30 flex justify-center items-center">
               <BiImageAdd className=" text-4xl" />
             </div>
@@ -48,7 +70,7 @@ const Create = () => {
           <button
             type="submit"
             form="inputForm"
-            className=" absolute bottom-[20px] right-[150px]  px-5 py-2 rounded-md bg-secondary text-gray-400"
+            className="lg:block hidden absolute bottom-[20px] right-[150px]  px-5 py-2 rounded-md bg-secondary text-gray-400"
           >
             <span className="text-sm">Save</span>
           </button>
