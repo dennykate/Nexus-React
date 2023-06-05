@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import "animate.css";
 import { Toaster, toast } from "react-hot-toast";
 import { PulseLoader } from "react-spinners";
+import Cookies from "js-cookie";
 
 const RegisterForm = () => {
   const [name, setName] = useState("");
@@ -15,7 +16,18 @@ const RegisterForm = () => {
 
   const navigate = useNavigate();
   const [register, {isLoading}] = useRegisterMutation();
-
+  
+  const redirectIfUserLogin = () => {
+    const token = Cookies.get("token");
+    const keepme = Cookies.get("keepme")
+      ? JSON.parse(Cookies.get("keepme"))
+      : Cookies.get("keepme");
+    // console.log(typeof  keepme)
+    if (keepme && token) {
+      return navigate("/");
+    }
+  };
+  redirectIfUserLogin();
   // console.log(user);
 
   const location = useLocation();
