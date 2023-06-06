@@ -187,7 +187,7 @@ const LoginForm = () => {
                         value={keepme}
                         onClick={() => setkeepme(!keepme)}
                       />
-                      <span className="ml-2 text-gray-400 xl:text-[18px] lg:text-sm text-xs sm:text-md md:text-md select-none ">
+                      <span className="ml-2 text-gray-400 xl:text-[15px] lg:text-sm text-xs sm:text-md md:text-md select-none  ">
                         {" "}
                         Keep me logged in
                       </span>
@@ -196,7 +196,7 @@ const LoginForm = () => {
                   <div className="">
                     <Link
                       to="/forgetpassword"
-                      className=" text-primary font-semibold underline cursor-pointer text-xs sm:text-md md:text-md lg:text-sm xl:text-[18px]"
+                      className=" text-primary font-semibold underline cursor-pointer text-xs sm:text-md md:text-md lg:text-sm xl:text-[15px]"
                     >
                       Forgot Password
                     </Link>
@@ -211,12 +211,12 @@ const LoginForm = () => {
                 </button>
 
                 <div className="flex justify-center items-center  ">
-                  <p className="text-sm sm:text-md md:text-md font-semibold text-gray-500 pr-[5px] xl:font-semibold select-none    ">
+                  <p className="text-md font-semibold text-gray-500 pr-[5px] lg:text-xs xl:font-semibold text-xs sm:text-md md:text-md select-none     ">
                     Don't have an account?
                   </p>
                   <Link
                     to="/register"
-                    className="text-sm sm:text-md md:text-md text-primary font-semibold underline select-none "
+                    className="lg:text-xs text-primary font-semibold underline text-xs sm:text-md md:text-sm select-none"
                   >
                     Register
                   </Link>
