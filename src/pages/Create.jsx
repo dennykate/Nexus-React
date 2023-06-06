@@ -78,7 +78,7 @@ const Create = () => {
         <form
           id="inputForm"
           onSubmit={onSubmitHandler}
-          className="w-full flex flex-col gap-8 px-14 py-8"
+          className="w-full flex flex-col gap-8 sm:px-14 px-2 py-8"
         >
           <Input
             type={"text"}

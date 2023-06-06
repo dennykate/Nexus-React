@@ -6,7 +6,7 @@ const Input = ({type,label,Icon,name,setName}) => {
     const [focus,setFocus] = useState(false)
   return (
     <div className="flex gap-5 items-center">
-      <Icon className="text-sm" />
+      <Icon className="sm:text-sm text-base" />
       <div
         className={`lg:w-[500px] w-full h-[50px]  rounded-md p-3 text-gray-600 relative ${
           focus ? "border-primary border-2" : "border border-gray-400 "
