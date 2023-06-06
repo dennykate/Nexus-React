@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { AiOutlineStar } from "react-icons/ai";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { BiDotsVerticalRounded, BiPencil } from "react-icons/bi";
 import { IoPersonRemoveOutline, IoTrashOutline } from "react-icons/io5";
 
@@ -10,22 +10,28 @@ import DropdownItem from "./DropdownItem";
 import { tableRowDropdownData } from "../utils/data";
 import { useDestroyMutation } from "../feature/api/contactsApi";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeFromFrequents } from "../feature/services/frequentsSlice";
-import { storeForFavorites } from "../feature/services/favoritesSlice";
+import {
+  removeFromFavorites,
+  storeForFavorites,
+} from "../feature/services/favoritesSlice";
 
 const TableRow = ({ name, email, phone, id, isFrequent }) => {
   const dispatch = useDispatch();
   const [destroy] = useDestroyMutation();
+  const { favorites } = useSelector((state) => state.favorites);
   const [checked, setChecked] = useState(false);
+
+  const isAlreadyFavorited = favorites.find(
+    (favorite) => favorite != null && favorite.id == id
+  );
 
   const deleteHandler = async () => {
     const { data } = await destroy(id);
 
-    const notify = () => toast.success("Deleted successful");
-
-    if (data.success) {
-      notify();
+    if (data?.success) {
+      toast.success("Deleted successful");
     }
   };
 
@@ -34,7 +40,9 @@ const TableRow = ({ name, email, phone, id, isFrequent }) => {
   };
 
   const addToFavoriteHandler = () => {
-    dispatch(storeForFavorites({ name, email, phone, id }));
+    if (!isAlreadyFavorited)
+      dispatch(storeForFavorites({ name, email, phone, id }));
+    else dispatch(removeFromFavorites(id));
   };
 
   return (
@@ -49,7 +57,9 @@ const TableRow = ({ name, email, phone, id, isFrequent }) => {
           checked={checked}
           setChecked={setChecked}
         />
-        <h1 className=" font-[400] text-base text-[#5F6368]">{name}</h1>
+        <h1 className=" font-[400] text-base text-[#5F6368] truncate">
+          {name}
+        </h1>
       </th>
       <th className="lg:w-[25%] xl:w-[20%] w-[40%] h-full sm:flex hidden items-center justify-start px-1 ">
         <h1 className=" font-[400] text-base text-[#5F6368]">
@@ -67,7 +77,11 @@ const TableRow = ({ name, email, phone, id, isFrequent }) => {
           onClick={addToFavoriteHandler}
           className="text-[#5F6368] hover:text-black"
         >
-          <AiOutlineStar size={19} />
+          {isAlreadyFavorited ? (
+            <AiFillStar size={19} className="text-primary" />
+          ) : (
+            <AiOutlineStar size={19} />
+          )}
         </button>
 
         <Link to={`/edit/${id}`}>

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import Guard from "./Guard";
+import AddToFavorite from "./AddToFavorite";
 
 const Layout = ({ children }) => {
   const [showSideBar, setShowSideBar] = useState(true);
@@ -22,6 +23,8 @@ const Layout = ({ children }) => {
           </div>
         </div>
       </div>
+
+      <AddToFavorite />
     </Guard>
   );
 };

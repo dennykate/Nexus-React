@@ -13,11 +13,11 @@ export const frequentsSlice = createSlice({
     getFrequents: (state) => {
       const frequentStr = Cookies.get("frequents");
       let frequents = [];
-      if (frequentStr) {
+      if (frequentStr && frequentStr != "[null]") {
         frequents = JSON.parse(frequentStr);
       }
 
-      state.frequents = sortFrequent(frequents);
+      state.frequents = frequents;
     },
     storeForFrequents: (state, { payload }) => {
       const frequentStr = Cookies.get("frequents");
@@ -33,10 +33,7 @@ export const frequentsSlice = createSlice({
 
       if (isExistInCookie) {
         newFrequents = frequents.map((frequent) => {
-          if (
-            frequent.name == payload.name &&
-            frequent.email == payload.email
-          ) {
+          if (frequent.id == payload.id) {
             frequent.searchCount += 1;
           }
           return frequent;
@@ -45,9 +42,9 @@ export const frequentsSlice = createSlice({
         newFrequents = [...frequents, { ...payload, searchCount: 1 }];
       }
 
-      Cookies.set("frequents", JSON.stringify(newFrequents));
+      Cookies.set("frequents", JSON.stringify(sortFrequent(newFrequents)));
 
-      state.frequents = newFrequents;
+      state.frequents = sortFrequent(newFrequents);
     },
     removeFromFrequents: (state, { payload }) => {
       const frequentStr = Cookies.get("frequents");

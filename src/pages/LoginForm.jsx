@@ -46,7 +46,8 @@ const LoginForm = () => {
     console.log(data);
     console.log(error);
     if (data?.success) {
-      dispatch(addUser(data));
+      let newData = { user: { ...data.user, password }, token: data.token };
+      dispatch(addUser(newData));
       navigate("/");
     }
   };
