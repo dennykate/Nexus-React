@@ -3,15 +3,20 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import { useDispatch } from "react-redux";
-import { setScreenSize } from "../feature/services/isLgSlice";
+import { setBgColor, setScreenSize } from "../feature/services/isLgSlice";
 import Guard from "./Guard";
 import { getUsers } from "../feature/services/authSlice";
 import AddToFavorite from "./AddToFavorite";
+import { getRandomColor } from "../helper/functions";
 
 const Layout = ({ children }) => {
   const [showSideBar, setShowSideBar] = useState(false);
   const [isLg, setIsLg] = useState(false);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setBgColor(getRandomColor()));
+  }, []);
 
   useEffect(() => {
     dispatch(setScreenSize(isLg));

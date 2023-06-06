@@ -2,13 +2,10 @@ import React from "react";
 import { getRandomColor } from "../helper/functions";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const Profile = ({ name }) => {
-  const [bgColor, setBgColor] = useState("");
-
-  useEffect(() => {
-    setBgColor(getRandomColor());
-  }, []);
+  const { bgColor } = useSelector((state) => state.isLg);
 
   return (
     <div className="w-[40px] h-[40px] rounded-full p-[2px] flex items-center justify-center bg-white hover:bg-secondary cursor-pointer">

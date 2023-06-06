@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdHelpOutline, MdOutlineMenu, MdOutlineLogout } from "react-icons/md";
 import { IoApps, IoSearchSharp, IoSettingsOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
@@ -48,21 +48,31 @@ const Navbar = ({ setShowSideBar, showSideBar }) => {
       navigate("/login");
     }
   };
+
   const addAnotherAccountHandler = async () => {
     await logoutHandler();
   };
-  const loginHandler = async (user) => {
-    console.log("login", user);
-    // const user = { email, password };
 
-    const { data, error } = await login(user);
+  const loginHandler = async (user) => {
+    const { email, password } = user?.user;
+
+    const { data, error } = await login({ email, password });
 
     console.log(data);
     console.log(error);
     if (data?.success) {
-      dispatch(addUser(data));
+      const newData = {
+        user: user.user,
+        token: data.token,
+        keepme: user.keepme,
+      };
+      dispatch(addUser(newData));
       navigate("/");
     }
+  };
+
+  const profileHandler = () => {
+    navigate("/profile");
   };
 
   return (
@@ -76,9 +86,10 @@ const Navbar = ({ setShowSideBar, showSideBar }) => {
               onClick={() => setShowSideBar(!showSideBar)}
               className="min-w-[50px] h-[50px] rounded-full flex justify-center items-center bg-white hover:bg-secondary"
             >
-              <Tooltip Icon={MdOutlineMenu} className="text-2xl text-gray-600">
-                <TooltipText name="menu"></TooltipText>
-              </Tooltip>
+              <Tooltip
+                Icon={MdOutlineMenu}
+                className="text-2xl text-gray-600"
+              ></Tooltip>
             </button>
             <Link to={"/"}>
               <button className="sm:flex hidden items-center ">
@@ -162,7 +173,7 @@ const Navbar = ({ setShowSideBar, showSideBar }) => {
                 )}
               </button>
               <div className="flex gap-5 lg:gap-8 items-center">
-                <Dropdown Icon={MdHelpOutline}>
+                <Dropdown Icon={MdHelpOutline} name="Help Menu">
                   {["Send Feedback", "Help"].map((data, index) => (
                     <DropdownItem key={index} name={data} />
                   ))}
@@ -175,20 +186,24 @@ const Navbar = ({ setShowSideBar, showSideBar }) => {
                 </Dropdown>
               </div>
               <div className="flex items-center gap-5 lg:gap-2">
-                <button className="lg:w-[40px] lg:h-[40px] w-[30px] h-[30px] rounded-full flex justify-center items-center bg-white hover:bg-secondary">
+                <button className="lg:w-[40px] lg:h-[40px] w-[30px] h-[30px] rounded-full flex justify-center items-center  bg-white hover:bg-secondary">
                   <IoApps className="text-xl text-gray-600" />
                 </button>
 
                 <Dropdown user Component={<Profile name={loginUser?.name} />}>
                   <div className="w-full px-[8px] flex flex-col gap-[2px] overflow-hidden">
                     <div className="w-[300px] bg-white rounded-t-xl">
-                      <UserInfo user={loginUser} currentUser={true} />
+                      <UserInfo
+                        onClick={profileHandler}
+                        user={loginUser}
+                        currentUser={true}
+                      />
                     </div>
                     <div className="w-[300px] bg-white rounded-b-xl mb-2 overflow-hidden">
-                      {notUsers.map(({ user }, index) => (
+                      {notUsers?.map((user, index) => (
                         <UserInfo
                           onClick={() => loginHandler(user)}
-                          user={user}
+                          user={user.user}
                           currentUser={false}
                           key={index}
                         />

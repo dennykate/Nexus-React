@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { getRandomColor } from "../helper/functions";
 
 const UserInfo = ({ user, currentUser, onClick }) => {
+  const { bgColor } = useSelector((state) => state.isLg);
+  const [randomBgColor, setRandomBgColor] = useState("");
+
+  useEffect(() => {
+    setRandomBgColor(getRandomColor());
+  }, []);
+
   return (
     <div className="" onClick={onClick}>
       <div
@@ -14,8 +23,8 @@ const UserInfo = ({ user, currentUser, onClick }) => {
           <div
             className={`${
               currentUser
-                ? "w-[60px] h-[60px] bg-primary bg-opacity-50"
-                : "w-[40px] h-[40px]  bg-yellow-500 bg-opacity-50"
+                ? `w-[60px] h-[60px] ${bgColor} `
+                : `w-[40px] h-[40px]  ${randomBgColor}`
             }  rounded-full  flex justify-center items-center`}
           >
             <h1
@@ -27,11 +36,19 @@ const UserInfo = ({ user, currentUser, onClick }) => {
             </h1>
           </div>
         </div>
-        <div className="flex flex-col">
-          <h1 className={`capitalize ${currentUser ? "text-lg" : "text-sm"}`}>
+        <div className="flex flex-col gap-0">
+          <h1
+            className={`capitalize ${
+              currentUser ? "text-[18px]" : "text-[14px]"
+            }`}
+          >
             {user?.name}
           </h1>
-          <h2 className={`text-primary ${currentUser ? "text-lg" : "text-sm"}`}>
+          <h2
+            className={`text-primary ${
+              currentUser ? "text-[18px]" : "text-[14px]"
+            }`}
+          >
             {user?.email}
           </h2>
         </div>

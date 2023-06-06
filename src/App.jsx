@@ -12,6 +12,8 @@ import Search from "./pages/Search";
 import Edit from "./pages/Edit";
 import Detail from "./pages/Detail";
 import Favorite from "./pages/Favorite";
+import UserProfile from "./pages/UserProfile";
+import Guard from "./components/Guard";
 
 const App = () => {
   return (
@@ -26,6 +28,14 @@ const App = () => {
       <Route path="/search/:id" element={<Search />} />
       <Route path="/edit/:id" element={<Edit />} />
       <Route path="/detail/:id" element={<Detail />} />
+      <Route
+        path="/profile"
+        element={
+          <Guard>
+            <UserProfile />
+          </Guard>
+        }
+      />
     </Routes>
   );
 };

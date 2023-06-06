@@ -2,39 +2,63 @@ import React from "react";
 import Layout from "../components/Layout";
 import { BiDotsVerticalRounded, BiImageAdd, BiPlus } from "react-icons/bi";
 
-import { useGetSingleContactQuery } from "../feature/api/contactsApi";
+import {
+  useDestroyMutation,
+  useGetSingleContactQuery,
+} from "../feature/api/contactsApi";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-import { AiOutlineArrowLeft, AiOutlineStar } from "react-icons/ai";
+import { AiFillStar, AiOutlineArrowLeft, AiOutlineStar } from "react-icons/ai";
 import Dropdown from "../components/Dropdown";
 import DropdownItem from "../components/DropdownItem";
 import { detailIcons, tableRowDropdownData } from "../utils/data";
-import { Toaster } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 import { IoTrashOutline } from "react-icons/io5";
 import { MdMailOutline, MdOutlineEdit, MdOutlinePhone } from "react-icons/md";
 import { FaRegAddressCard } from "react-icons/fa";
 import IsLgBtn from "../components/IsLgBtn";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  removeFromFavorites,
+  storeForFavorites,
+} from "../feature/services/favoritesSlice";
 
 const Detail = () => {
+  const [user, setUser] = useState();
+
+  const dispatch = useDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
-  const [user, setUser] = useState();
   const { data } = useGetSingleContactQuery(id);
+  const [destroy] = useDestroyMutation();
+  const { favorites } = useSelector((state) => state.favorites);
+
+  const isAlreadyFavorited = favorites.find((favorite) => favorite.id == id);
+
   const contact = data?.contact;
   useEffect(() => {
     if (contact) {
       setUser(contact);
     }
   }, [contact]);
+
   const deleteHandler = async () => {
     const { data } = await destroy(id);
 
     const notify = () => toast.success("Deleted successful");
 
-    if (data.success) {
+    if (data?.success) {
       notify();
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
     }
+  };
+
+  const addToFavoriteHandler = () => {
+    if (!isAlreadyFavorited) dispatch(storeForFavorites(data.contact));
+    else dispatch(removeFromFavorites(id));
   };
 
   return (
@@ -46,8 +70,15 @@ const Detail = () => {
           </button>
         </div>
         <div className="flex gap-5 items-center">
-          <button className="text-[#5F6368] hover:text-black">
-            <AiOutlineStar size={19} />
+          <button
+            onClick={addToFavoriteHandler}
+            className="text-[#5F6368] hover:text-black"
+          >
+            {isAlreadyFavorited ? (
+              <AiFillStar className="text-primary" size={19} />
+            ) : (
+              <AiOutlineStar size={19} />
+            )}
           </button>
 
           <Dropdown Icon={BiDotsVerticalRounded}>
@@ -59,7 +90,6 @@ const Detail = () => {
               name="Delete"
               onClick={deleteHandler}
             />
-            <Toaster />
           </Dropdown>
         </div>
       </div>
@@ -87,8 +117,15 @@ const Detail = () => {
             </div>
           </div>
           <div className=" gap-5  absolute bottom-[40px] right-[150px] lg:flex hidden items-center">
-            <button className="text-[#5F6368] hover:text-black">
-              <AiOutlineStar size={19} />
+            <button
+              onClick={addToFavoriteHandler}
+              className="text-[#5F6368] hover:text-black"
+            >
+              {isAlreadyFavorited ? (
+                <AiFillStar className="text-primary" size={19} />
+              ) : (
+                <AiOutlineStar size={19} />
+              )}
             </button>
 
             <Dropdown Icon={BiDotsVerticalRounded}>
@@ -125,22 +162,22 @@ const Detail = () => {
         </div>
         <div className=" sm:px-5 px-1 py-10">
           <div className="border rounded-md lg:w-[450px] w-full p-3 ">
-            <h1 className="mb-2">Contact details</h1>
-            <div className="flex flex-col gap-3">
-              <div className="flex gap-3">
+            <h1 className="mb-2 text-xl font-normal">Contact details</h1>
+            <div className="flex flex-col gap-0">
+              <div className="flex items-center gap-3">
                 <MdMailOutline className="text-xl text-gray-400" />
-                <h1 className="text-primary">{user?.email}</h1>
+                <h1 className="text-primary text-base">{user?.email}</h1>
               </div>
-              <div className="flex gap-3">
+              <div className="flex items-center gap-3">
                 <MdOutlinePhone className="text-xl text-gray-400" />
-                <h1 className="text-primary">
+                <h1 className="text-primary text-base">
                   {user?.phone}
                   <span className="text-gray-400"> • Mobile</span>
                 </h1>
               </div>
-              <div className="flex gap-3">
+              <div className="flex items-center gap-3">
                 <FaRegAddressCard className="text-xl text-gray-400" />
-                <h1 className="text-primary">{user?.address}</h1>
+                <h1 className="text-primary text-base">{user?.address}</h1>
               </div>
             </div>
           </div>
@@ -152,6 +189,7 @@ const Detail = () => {
         bgColor={"bg-primary"}
         textColor={"text-white"}
       />
+      <Toaster />
     </Layout>
   );
 };

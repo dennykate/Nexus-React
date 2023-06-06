@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 
 const initialState = {
   favorites: [],
+  addToFavorite: true,
 };
 
 export const favoritesSlice = createSlice({
@@ -46,9 +47,16 @@ export const favoritesSlice = createSlice({
       state.favorites = newFavorites.reverse();
       Cookies.set("favorites", JSON.stringify(newFavorites));
     },
+    closeAddToFavorite: (state) => {
+      state.addToFavorite = false;
+    },
   },
 });
 
-export const { getFavorites, storeForFavorites, removeFromFavorites } =
-  favoritesSlice.actions;
+export const {
+  getFavorites,
+  storeForFavorites,
+  removeFromFavorites,
+  closeAddToFavorite,
+} = favoritesSlice.actions;
 export default favoritesSlice.reducer;
