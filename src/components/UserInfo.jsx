@@ -28,8 +28,12 @@ const UserInfo = ({ user, currentUser, onClick }) => {
           </div>
         </div>
         <div className="flex flex-col">
-          <h1 className="capitalize text-lg"> {user?.name}</h1>
-          <h2 className="text-primary">{user?.email}</h2>
+          <h1 className={`capitalize ${currentUser ? "text-lg" : "text-sm"}`}>
+            {user?.name}
+          </h1>
+          <h2 className={`text-primary ${currentUser ? "text-lg" : "text-sm"}`}>
+            {user?.email}
+          </h2>
         </div>
       </div>
     </div>

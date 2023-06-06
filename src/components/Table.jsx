@@ -2,9 +2,9 @@ import React from "react";
 import TableHead from "./TableHead";
 import TableRow from "./TableRow";
 
-const Table = ({ data }) => {
+const Table = ({ data,isFrequent }) => {
   return (
-    <div className="w-full px-4">
+    <div className="w-full sm:px-4 px-1">
       <TableHead />
 
       {/* title for table */}
@@ -15,7 +15,7 @@ const Table = ({ data }) => {
       <table className="w-full mb-3">
         <tbody>
           {data?.data.map((data, index) => (
-            <TableRow key={index} {...data} />
+            <TableRow key={index} {...data} isFrequent={isFrequent} />
           ))}
         </tbody>
       </table>

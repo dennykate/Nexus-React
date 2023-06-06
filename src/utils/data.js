@@ -4,9 +4,18 @@ import {
   IoInformationCircleOutline,
   IoTrashOutline,
 } from "react-icons/io5/index.js";
-import { MdMailOutline, MdOutlineAutoFixHigh, MdOutlineMessage } from "react-icons/md/index.js";
+import {
+  MdMailOutline,
+  MdOutlineAutoFixHigh,
+  MdOutlineFavoriteBorder,
+  MdOutlineMessage,
+} from "react-icons/md/index.js";
 import { RxCounterClockwiseClock } from "react-icons/rx/index.js";
-import { AiFillPrinter, AiOutlineUpload, AiOutlineVideoCamera } from "react-icons/ai/index.js";
+import {
+  AiFillPrinter,
+  AiOutlineUpload,
+  AiOutlineVideoCamera,
+} from "react-icons/ai/index.js";
 import { IoMdCalendar } from "react-icons/io";
 
 export const randomColors = [
@@ -42,6 +51,11 @@ export const sideBarItem = [
     Icon: RxCounterClockwiseClock,
     name: "Frequent",
     pathname: "/frequent",
+  },
+  {
+    Icon: MdOutlineFavoriteBorder,
+    name: "Favorite",
+    pathname: "/favorite",
   },
   {
     Icon: IoArchiveOutline,
@@ -81,15 +95,15 @@ export const tableRowDropdownData = [
 
 export const detailIcons = [
   {
-    Icon: MdMailOutline
+    Icon: MdMailOutline,
   },
   {
-    Icon: IoMdCalendar
+    Icon: IoMdCalendar,
   },
   {
-    Icon:MdOutlineMessage
+    Icon: MdOutlineMessage,
   },
   {
-    Icon:AiOutlineVideoCamera
-  }
-]
+    Icon: AiOutlineVideoCamera,
+  },
+];

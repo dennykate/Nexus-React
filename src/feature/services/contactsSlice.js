@@ -20,6 +20,10 @@ export const contactsSlice = createSlice({
       state.contacts = newContacts;
       state.total = newContacts.length;
     },
+    addSingleContact: (state, { payload }) => {
+      state.contacts = [...state.contacts, payload];
+      state.total += 1;
+    },
     addTotal: (state, { payload }) => {
       state.total = payload.contacts.total;
     },
@@ -33,9 +37,17 @@ export const contactsSlice = createSlice({
       state.contacts = newContacts;
       state.total = newContacts.length;
     },
+    increaseTotal: (state) => {
+      state.total += 1;
+    },
   },
 });
 
-export const { addContacts, addTotal, removeContact, addSingleContact } =
-  contactsSlice.actions;
+export const {
+  addContacts,
+  addTotal,
+  removeContact,
+  addSingleContact,
+  increaseTotal,
+} = contactsSlice.actions;
 export default contactsSlice.reducer;

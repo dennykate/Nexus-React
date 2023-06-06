@@ -1,15 +1,15 @@
-import React from "react";
-import { useState } from "react";
-import Input from "../components/Input";
-import Layout from "../components/Layout";
+import React, { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
 import { BiImageAdd, BiPlus } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+
+import Input from "../components/Input";
+import Layout from "../components/Layout";
 import { FaAddressBook, FaRegUser } from "react-icons/fa";
 import { MdLocalPhone, MdOutlineMail } from "react-icons/md";
 import { useCreateContactMutation } from "../feature/api/contactsApi";
-import toast, { Toaster } from "react-hot-toast";
-import { useDispatch } from "react-redux";
 import { addSingleContact } from "../feature/services/contactsSlice";
 
 const Create = () => {
@@ -26,8 +26,8 @@ const Create = () => {
     const contact = { name, phone, email, address };
     const { data } = await createProduct(contact);
     if (data) {
-      dispatch(addSingleContact(data.contact));
       toast.success("Successfully saved");
+      dispatch(addSingleContact(data.contact));
     }
     console.log(data);
   };
@@ -49,9 +49,9 @@ const Create = () => {
           <span className="text-sm">Save</span>
         </button>
       </div>
-      <div className="w-full h-full p-2 lg:relative overflow-y-scroll">
+      <div className="w-full h-full p-2 relative overflow-y-scroll">
         <button
-          className="lg:block hidden absolute top-2 left-2 z-10"
+          className="absolute top-2 left-2 z-10 lg:block hidden "
           onClick={() => navigate("/")}
         >
           <IoMdClose className="text-2xl" />

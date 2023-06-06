@@ -1,15 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { getFrequents } from "../feature/services/frequentsSlice";
+import Table from "../components/Table";
 import Layout from "../components/Layout";
-import Cookies from "js-cookie";
+import SearchGuard from "../components/SearchGuard";
+import Error from "../components/Error";
 
 const Frequent = () => {
-  const frequentStr = Cookies.get("frequents");
-  let frequents = [];
-  if (frequentStr) {
-    frequents = JSON.parse(frequentStr);
-  }
+  const dispatch = useDispatch();
 
-  return <Layout></Layout>;
+  useEffect(() => {
+    dispatch(getFrequents());
+  }, []);
+
+  const { frequents } = useSelector((state) => state.frequents);
+
+  console.log(frequents);
+
+  return (
+    <SearchGuard>
+      <Layout>
+        {frequents.length > 0 ? (
+          <Table
+            data={{ data: frequents, total: frequents.length }}
+            isFrequent
+          />
+        ) : (
+          <Error />
+        )}
+      </Layout>
+    </SearchGuard>
+  );
 };
 
 export default Frequent;

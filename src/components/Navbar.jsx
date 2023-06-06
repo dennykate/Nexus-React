@@ -23,7 +23,6 @@ const Navbar = ({ setShowSideBar, showSideBar }) => {
   const navigate = useNavigate();
   const { contacts } = useSelector((state) => state.contacts);
   const { users } = useSelector((state) => state.authSlice);
-  console.log(users);
   const [focus, setFocus] = useState(false);
   const [search, setSearch] = useState("");
   const [showSearchInput, setShowSearchInput] = useState(false);

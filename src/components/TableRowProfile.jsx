@@ -5,8 +5,7 @@ import { RxDragHandleDots2 } from "react-icons/rx";
 import { getRandomColor } from "../helper/functions";
 import { useEffect } from "react";
 
-const TableRowProfile = ({ name }) => {
-  const [checked, setChecked] = useState(false);
+const TableRowProfile = ({ name, checked, setChecked }) => {
   const image = faker.internet.avatar();
   const [bgColor, setBgColor] = useState("");
 
@@ -31,7 +30,10 @@ const TableRowProfile = ({ name }) => {
         <RxDragHandleDots2 size={18} color="#5F6368" />
         <input
           checked={checked}
-          onChange={() => setChecked(!checked)}
+          onChange={(e) => {
+            e.stopPropagation();
+            setChecked(!checked);
+          }}
           type="checkbox"
           className=" accent-primary w-[25px] h-[25px] cursor-pointer"
         />

@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { setScreenSize } from "../feature/services/isLgSlice";
 import Guard from "./Guard";
 import { getUsers } from "../feature/services/authSlice";
+import AddToFavorite from "./AddToFavorite";
 
 const Layout = ({ children }) => {
   const [showSideBar, setShowSideBar] = useState(false);
@@ -58,6 +59,8 @@ const Layout = ({ children }) => {
           </div>
         </div>
       </div>
+
+      <AddToFavorite />
     </Guard>
   );
 };
