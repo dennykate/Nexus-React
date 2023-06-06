@@ -14,7 +14,7 @@ export const getAllContacts = async (page) => {
       `https://contact-app.mmsdev.site/api/v1/contact?page=${i}`,
       {
         headers: {
-          Authorization: "Bearer 359|K40DVNveVLD7gQI3eGmjconYfvqOFQMsKw6ApBP8",
+          Authorization: "Bearer 70|IUoMd40J7r8qUZQUBeljgRkvJ1P69paOjyH0JMdg",
         },
       }
     );

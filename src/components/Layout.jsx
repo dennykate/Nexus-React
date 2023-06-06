@@ -4,6 +4,8 @@ import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import { useDispatch } from "react-redux";
 import { setScreenSize } from "../feature/services/isLgSlice";
+import Guard from "./Guard";
+import { getUsers } from "../feature/services/authSlice";
 
 const Layout = ({ children }) => {
   const [showSideBar, setShowSideBar] = useState(false);
@@ -13,6 +15,10 @@ const Layout = ({ children }) => {
   useEffect(() => {
     dispatch(setScreenSize(isLg));
   }, [isLg]);
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
 
   useEffect(() => {
     if (window.innerWidth < 1024) {
@@ -37,20 +43,22 @@ const Layout = ({ children }) => {
   }, []);
 
   return (
-    <div className="w-full h-screen flex flex-col">
-      <Navbar setShowSideBar={setShowSideBar} showSideBar={showSideBar} />
-      <div className="w-full flex h-full overflow-hidden">
-        <Sidebar showSideBar={showSideBar} />
-        <div
-          onClick={() => !isLg && setShowSideBar(false)}
-          className={`${
-            showSideBar ? "lg:w-[80%] w-full" : "w-full"
-          } transition-all ease-in-out duration-200 overflow-y-auto lg:static relative `}
-        >
-          {children}
+    <Guard>
+      <div className="w-full h-screen flex flex-col">
+        <Navbar setShowSideBar={setShowSideBar} showSideBar={showSideBar} />
+        <div className="w-full flex h-full overflow-hidden">
+          <Sidebar showSideBar={showSideBar} />
+          <div
+            onClick={() => !isLg && setShowSideBar(false)}
+            className={`${
+              showSideBar ? "lg:w-[80%] w-full" : "w-full"
+            } transition-all ease-in-out duration-200 overflow-y-auto lg:static relative `}
+          >
+            {children}
+          </div>
         </div>
       </div>
-    </div>
+    </Guard>
   );
 };
 

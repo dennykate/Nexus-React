@@ -15,6 +15,8 @@ import { GoPlus } from "react-icons/go";
 const Contacts = () => {
   const dispatch = useDispatch();
   const { contacts } = useSelector((state) => state.contacts);
+  const { users } = useSelector((state) => state.authSlice);
+  console.log(users);
 
   const [page, setPage] = useState(1);
   const { data, error, isLoading } = useGetAllQuery(page);

@@ -10,6 +10,7 @@ export const store = configureStore({
     contacts: contactsSlice,
     isLg: isLgSlice,
     [contactsApi.reducerPath]: contactsApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
     authSlice: authSlice,
     contacts: contactsSlice,
   },
