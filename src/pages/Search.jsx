@@ -14,13 +14,15 @@ const Search = () => {
   const { contacts } = useSelector((state) => state.contacts);
   const { id } = useParams();
 
+  console.log(contacts);
+
   useEffect(() => {
     searchContacts();
   }, [id]);
 
   const searchContacts = () => {
     const searchContactsArr = contacts.filter((contact) => {
-      if (contact?.name.toLowerCase().indexOf(id) >= 0) {
+      if (contact?.name.toLowerCase().indexOf(id.toLowerCase()) >= 0) {
         return contact;
       }
     });

@@ -11,7 +11,7 @@ export const contactsApi = createApi({
       query: (page) => ({
         url: `/contact?page=${page}`,
         headers: {
-          Authorization: "Bearer 359|K40DVNveVLD7gQI3eGmjconYfvqOFQMsKw6ApBP8",
+          Authorization: "Bearer 66|KCSv6Z1mAxbTKNf1HQ2cqTq0aTCAfoN3Rty60xPt",
         },
       }),
       providesTags: ["contactsApi"],
@@ -21,7 +21,7 @@ export const contactsApi = createApi({
         url: `/contact/${id}`,
         method: "DELETE",
         headers: {
-          Authorization: "Bearer 359|K40DVNveVLD7gQI3eGmjconYfvqOFQMsKw6ApBP8",
+          Authorization: "Bearer 66|KCSv6Z1mAxbTKNf1HQ2cqTq0aTCAfoN3Rty60xPt",
         },
       }),
       invalidatesTags: ["contactsApi"],
@@ -30,7 +30,7 @@ export const contactsApi = createApi({
       query: (id) => ({
         url: `/contact/${id}`,
         headers: {
-          Authorization: "Bearer 359|K40DVNveVLD7gQI3eGmjconYfvqOFQMsKw6ApBP8",
+          Authorization: "Bearer 66|KCSv6Z1mAxbTKNf1HQ2cqTq0aTCAfoN3Rty60xPt",
         },
       }),
       providesTags: ["contactsApi"],
@@ -41,7 +41,7 @@ export const contactsApi = createApi({
         method: "PUT",
         body: contact,
         headers: {
-          Authorization: "Bearer 359|K40DVNveVLD7gQI3eGmjconYfvqOFQMsKw6ApBP8",
+          Authorization: "Bearer 66|KCSv6Z1mAxbTKNf1HQ2cqTq0aTCAfoN3Rty60xPt",
         },
       }),
       invalidatesTags: ["contactsApi"],
@@ -52,7 +52,7 @@ export const contactsApi = createApi({
         method: "POST",
         body: contact,
         headers: {
-          Authorization: "Bearer 359|K40DVNveVLD7gQI3eGmjconYfvqOFQMsKw6ApBP8",
+          Authorization: "Bearer 66|KCSv6Z1mAxbTKNf1HQ2cqTq0aTCAfoN3Rty60xPt",
         },
       }),
       invalidatesTags: ["contactsApi"],

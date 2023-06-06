@@ -10,7 +10,10 @@ import { MdLocalPhone, MdOutlineMail } from "react-icons/md";
 import { useCreateContactMutation } from "../feature/api/contactsApi";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { increaseTotal } from "../feature/services/contactsSlice";
+import {
+  addSingleContact,
+  increaseTotal,
+} from "../feature/services/contactsSlice";
 
 const Create = () => {
   const dispatch = useDispatch();
@@ -28,7 +31,7 @@ const Create = () => {
     const { data } = await createProduct(contact);
     if (data) {
       toast.success("Successfully saved");
-      dispatch(increaseTotal());
+      dispatch(addSingleContact(data.contact));
     }
     console.log(data);
   };
