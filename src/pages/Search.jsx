@@ -7,6 +7,7 @@ import Table from "../components/Table";
 import Layout from "../components/Layout";
 import Error from "../components/Error";
 import SearchGuard from "../components/SearchGuard";
+import Footer from "../components/Footer";
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const Search = () => {
       <Layout>
         {data !== null && data.data.length > 0 && <Table data={data} />}
         {data && data.data.length == 0 && <Error />}
+        
       </Layout>
     </SearchGuard>
   );

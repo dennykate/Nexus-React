@@ -12,6 +12,7 @@ import { addContacts, addTotal } from "../feature/services/contactsSlice";
 import IsLgBtn from "../components/IsLgBtn";
 import { GoPlus } from "react-icons/go";
 import { getFavorites } from "../feature/services/favoritesSlice";
+import Footer from "../components/Footer";
 
 const Contacts = () => {
   
@@ -67,6 +68,7 @@ const Contacts = () => {
         bgColor={"white"}
         textColor={"text-primary"}
       />
+      
     </Layout>
   );
 };

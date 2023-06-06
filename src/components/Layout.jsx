@@ -8,6 +8,7 @@ import Guard from "./Guard";
 import { getUsers } from "../feature/services/authSlice";
 import AddToFavorite from "./AddToFavorite";
 import { getRandomColor } from "../helper/functions";
+import Footer from "./Footer";
 
 const Layout = ({ children }) => {
   const [showSideBar, setShowSideBar] = useState(false);
@@ -58,10 +59,12 @@ const Layout = ({ children }) => {
             onClick={() => !isLg && setShowSideBar(false)}
             className={`${
               showSideBar ? "lg:w-[80%] w-full" : "w-full"
-            } transition-all ease-in-out duration-200 overflow-y-auto lg:static relative `}
+            } transition-all ease-in-out duration-200 overflow-y-auto  lg:static relative flex flex-col justify-between `}
           >
-            {children}
+           {children}
+            <Footer/>
           </div>
+          
         </div>
       </div>
 

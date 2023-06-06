@@ -68,7 +68,7 @@ const TableRow = ({ name, email, phone, id, isFrequent }) => {
       </td>
       <td className="lg:w-[25%] xl:w-[20%] w-[40%] h-full sm:flex hidden items-center justify-start px-1 ">
         <h1 className=" font-[400] text-base text-[#5F6368] truncate">
-          {email.lengtd > 18 ? email.slice(0, 18) + "..." : email}
+          {email.length > 18 ? email.slice(0, 18) + "..." : email}
         </h1>
       </td>
       <td className="xl:w-[20%] w-[25%] h-full lg:flex hidden items-center justify-start px-1">

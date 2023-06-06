@@ -6,6 +6,7 @@ import Table from "../components/Table";
 import Layout from "../components/Layout";
 import SearchGuard from "../components/SearchGuard";
 import Error from "../components/Error";
+import Footer from "../components/Footer";
 
 const Frequent = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const Frequent = () => {
         ) : (
           <Error />
         )}
+        
       </Layout>
     </SearchGuard>
   );
