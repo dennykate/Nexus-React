@@ -17,7 +17,9 @@ const TableRowProfile = ({ name, checked, setChecked }) => {
     <div className="w-[40px] h-full relative flex items-center pl-2">
       <div
         className={`w-[30px] h-[30px] rounded-full flex justify-center items-center text-white
-           uppercase font-[400] group-hover:hidden ${bgColor} overflow-hidden`}
+           uppercase font-[400] group-hover:hidden ${
+             bgColor ? bgColor : "bg-primary"
+           } overflow-hidden`}
       >
         {name.slice(0, 1)}
       </div>
@@ -32,6 +34,7 @@ const TableRowProfile = ({ name, checked, setChecked }) => {
           checked={checked}
           onChange={(e) => {
             e.stopPropagation();
+            Z;
             setChecked(!checked);
           }}
           type="checkbox"

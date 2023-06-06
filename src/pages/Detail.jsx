@@ -162,22 +162,22 @@ const Detail = () => {
         </div>
         <div className=" sm:px-5 px-1 py-10">
           <div className="border rounded-md lg:w-[450px] w-full p-3 ">
-            <h1 className="mb-2 text-xl font-normal">Contact details</h1>
-            <div className="flex flex-col gap-0">
+            <h1 className="mb-3 text-2xl font-normal">Contact details</h1>
+            <div className="flex flex-col gap-3">
               <div className="flex items-center gap-3">
                 <MdMailOutline className="text-xl text-gray-400" />
-                <h1 className="text-primary text-base">{user?.email}</h1>
+                <h1 className="text-primary text-sm">{user?.email}</h1>
               </div>
               <div className="flex items-center gap-3">
                 <MdOutlinePhone className="text-xl text-gray-400" />
-                <h1 className="text-primary text-base">
+                <h1 className="text-primary text-sm">
                   {user?.phone}
                   <span className="text-gray-400"> • Mobile</span>
                 </h1>
               </div>
               <div className="flex items-center gap-3">
                 <FaRegAddressCard className="text-xl text-gray-400" />
-                <h1 className="text-primary text-base">{user?.address}</h1>
+                <h1 className="text-primary text-sm">{user?.address}</h1>
               </div>
             </div>
           </div>

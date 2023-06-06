@@ -11,7 +11,7 @@ const UserInfo = ({ user, currentUser, onClick }) => {
   }, []);
 
   return (
-    <div className="" onClick={onClick}>
+    <div className=" cursor-pointer" onClick={onClick}>
       <div
         className={`w-full flex gap-5 items-center px-[20px] text-sm ${
           currentUser
@@ -39,14 +39,14 @@ const UserInfo = ({ user, currentUser, onClick }) => {
         <div className="flex flex-col gap-0">
           <h1
             className={`capitalize ${
-              currentUser ? "text-[18px]" : "text-[14px]"
+              currentUser ? "text-[15px]" : "text-[13px]"
             }`}
           >
             {user?.name}
           </h1>
           <h2
-            className={`text-primary ${
-              currentUser ? "text-[18px]" : "text-[14px]"
+            className={`text-primary -mt-[2px] ${
+              currentUser ? "text-[15px]" : "text-[13px]"
             }`}
           >
             {user?.email}

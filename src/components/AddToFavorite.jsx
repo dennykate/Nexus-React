@@ -26,8 +26,6 @@ const AddToFavorite = () => {
       favorite != null && frequents[0] && favorite.id == frequents[0].id
   );
 
-  console.log(isExistInFavorite);
-
   const addToFavoriteHandler = () => {
     dispatch(storeForFavorites(frequents[0]));
   };
@@ -43,7 +41,9 @@ const AddToFavorite = () => {
     <div
       className={`fixed bottom-1 right-1 w-[300px] bg-white rounded-lg shadow-lg border p-5 
     ${
-      addToFavorite ? "translate-y-0" : "translate-y-[100%]"
+      addToFavorite
+        ? "animate__animated animate__slideInUp"
+        : "animate__animated animate__slideOutDown"
     } transition-all duration-500 ease-in-out`}
     >
       <div className="w-full flex items-center gap-3">

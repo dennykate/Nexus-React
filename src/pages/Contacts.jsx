@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import Table from "../components/Table";
 import { useGetAllQuery } from "../feature/api/contactsApi";
-import Pagination from "../components/Pagination";
 import Loading from "../components/Loading";
 
 import { getAllContacts } from "../helper/functions";
@@ -12,10 +11,8 @@ import { addContacts, addTotal } from "../feature/services/contactsSlice";
 import IsLgBtn from "../components/IsLgBtn";
 import { GoPlus } from "react-icons/go";
 import { getFavorites } from "../feature/services/favoritesSlice";
-import Footer from "../components/Footer";
 
 const Contacts = () => {
-  
   const dispatch = useDispatch();
   const { contacts } = useSelector((state) => state.contacts);
   const { users } = useSelector((state) => state.authSlice);
@@ -51,16 +48,11 @@ const Contacts = () => {
 
   return (
     <Layout>
-      {isLoading ? <Loading /> : <Table data={data.contacts} />}
-
-      <div className="flex justify-end pr-[10px]">
-        {data && (
-          <Pagination
-            handlePageClick={handlePageClick}
-            pageCount={data.contacts.last_page}
-          />
-        )}
-      </div>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <Table data={data.contacts} setPage={setPage} />
+      )}
 
       <IsLgBtn
         Icon={GoPlus}
@@ -68,7 +60,6 @@ const Contacts = () => {
         bgColor={"white"}
         textColor={"text-primary"}
       />
-      
     </Layout>
   );
 };

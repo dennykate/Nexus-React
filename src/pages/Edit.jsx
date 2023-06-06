@@ -14,10 +14,13 @@ import {
 } from "../feature/api/contactsApi";
 import toast, { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { updateContacts } from "../feature/services/contactsSlice";
 
 const Edit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { data, isLoading } = useGetSingleContactQuery(id);
   const contact = data?.contact;
   const [name, setName] = useState("");
@@ -40,7 +43,9 @@ const Edit = () => {
     const contact = { id, name, phone, email, address };
     console.log(contact);
     const { data } = await updateProduct(contact);
+
     if (data) {
+      dispatch(updateContacts(data.contact));
       toast.success("Successfully updated");
     }
 

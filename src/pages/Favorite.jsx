@@ -21,7 +21,7 @@ const Favorite = () => {
   return (
     <Layout>
       {favorites.length > 0 && favorites[0] != null ? (
-        <Table data={{ data: favorites, total: favorites.length }} isFrequent />
+        <Table data={{ data: favorites, total: favorites.length }} />
       ) : (
         <Error />
       )}

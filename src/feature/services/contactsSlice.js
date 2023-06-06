@@ -20,10 +20,6 @@ export const contactsSlice = createSlice({
       state.contacts = newContacts;
       state.total = newContacts.length;
     },
-    addSingleContact: (state, { payload }) => {
-      state.contacts = [...state.contacts, payload];
-      state.total += 1;
-    },
     addTotal: (state, { payload }) => {
       state.total = payload.contacts.total;
     },
@@ -40,6 +36,14 @@ export const contactsSlice = createSlice({
     increaseTotal: (state) => {
       state.total += 1;
     },
+    updateContacts: (state, { payload }) => {
+      state.contacts = state.contacts.map((contact) => {
+        if (contact.id == payload.id) {
+          return payload;
+        }
+        return contact;
+      });
+    },
   },
 });
 
@@ -49,5 +53,6 @@ export const {
   removeContact,
   addSingleContact,
   increaseTotal,
+  updateContacts
 } = contactsSlice.actions;
 export default contactsSlice.reducer;

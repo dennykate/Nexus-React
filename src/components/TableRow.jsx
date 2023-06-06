@@ -58,21 +58,23 @@ const TableRow = ({ name, email, phone, id, isFrequent }) => {
         checked && "shadow-lg"
       }`}
     >
-      <td className="lg:w-[25%] xl:w-[20%] sm:w-[40%] w-[70%] h-full flex items-center justify-start gap-4">
+      <td className="lg:w-[25%] xl:w-[20%] sm:w-[40%] w-[70%] h-full flex items-center justify-start gap-4 px-2">
         <TableRowProfile
           name={name}
           setChecked={setChecked}
           checked={checked}
         />
-        <h1 className=" font-[400] text-base text-[#5F6368]">{name}</h1>
+        <h1 className=" font-[400] text-base text-[#5F6368]">{name && name}</h1>
       </td>
       <td className="lg:w-[25%] xl:w-[20%] w-[40%] h-full sm:flex hidden items-center justify-start px-1 ">
         <h1 className=" font-[400] text-base text-[#5F6368] truncate">
-          {email.length > 18 ? email.slice(0, 18) + "..." : email}
+          {email && email.length > 18 ? email.slice(0, 18) + "..." : email}
         </h1>
       </td>
       <td className="xl:w-[20%] w-[25%] h-full lg:flex hidden items-center justify-start px-1">
-        <h1 className=" font-[400] text-base text-[#5F6368]">{phone}</h1>
+        <h1 className=" font-[400] text-base text-[#5F6368]">
+          {phone && phone}
+        </h1>
       </td>
       <td className="xl:w-[20%] w-[25%] h-full xl:flex hidden items-center justify-start px-1">
         <h1 className=" font-[400] text-base text-[#5F6368]"></h1>

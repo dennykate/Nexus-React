@@ -86,7 +86,7 @@ const UserProfile = () => {
                 <div
                   className={`w-full h-full rounded-full flex justify-center items-center ${bgColor}`}
                 >
-                  <h1 className="text-md font-[500] text-white uppercase">
+                  <h1 className="text-3xl font-[500] text-white uppercase">
                     {userName?.slice(0, 1)}
                   </h1>
                 </div>

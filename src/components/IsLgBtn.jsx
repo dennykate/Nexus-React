@@ -10,7 +10,8 @@ const IsLgBtn = ({ Icon, pathname, bgColor, textColor }) => {
       {!isLg && (
         <Link to={pathname}>
           <button
-            className={`fixed sm:bottom-8 sm:right-8  bottom-5 right-5 w-[56px] h-[56px] rounded-full shadow-xl shadow-gray-00 flex justify-center items-center z-10  ${bgColor}`}
+            className={`fixed sm:bottom-8 sm:right-8  bottom-5 right-5 w-[56px] h-[56px] rounded-full shadow-xl shadow-gray-00
+             flex justify-center items-center z-100  ${bgColor} `}
           >
             <Icon className={`${textColor}  text-3xl`} />
           </button>
